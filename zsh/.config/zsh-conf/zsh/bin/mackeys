@@ -1,0 +1,171 @@
+#!/bin/bash
+
+#  ========================================================================
+#   M A C K E Y S
+#   Interactive macOS shortcut cheat sheet with fuzzy search.
+#   Standalone Script Version
+#  ========================================================================
+
+#   [ 1 ]  V I S U A L   C O N F I G U R A T I O N
+#   -----------------------------------------------------------------------
+#   Define ANSI escape codes (Using tput is safer, but raw codes are portable enough here)
+
+c_reset=$'\033[0m'
+c_cat=$'\033[1;35m'    # Magenta   ( Category )
+c_desc=$'\033[1;37m'   # Bold Wht  ( Action Description )
+c_key=$'\033[1;33m'    # Yellow    ( Actual Keystrokes )
+c_dim=$'\033[0;90m'    # Grey      ( Visual Separators )
+
+#   Define Nerd Font icons
+i_apple=""
+i_search=""
+i_edit=""
+i_move=""
+i_file=""
+i_win=""
+i_screen=""
+i_web=""
+i_term=""
+i_power=""
+
+
+#   [ 2 ]  D A T A   S O U R C E
+#   -----------------------------------------------------------------------
+#   Using a here-doc variable for clean multi-line storage.
+
+read -r -d '' input_data << EOM
+Essentials|${i_search}|Spotlight Search|⌘ Space
+Essentials|${i_search}|Emoji Picker|Ctrl ⌘ Space
+Essentials|${i_search}|Dictation|F5 (or Fn Fn)
+Essentials|${i_search}|Control Center|Fn C
+Essentials|${i_power}|Force Quit App|⌥ ⌘ Esc
+Essentials|${i_power}|Lock Screen|Ctrl ⌘ Q
+Essentials|${i_search}|Siri|Hold ⌘ Space
+General Editing|${i_edit}|Copy|⌘ C
+General Editing|${i_edit}|Cut|⌘ X
+General Editing|${i_edit}|Paste|⌘ V
+General Editing|${i_edit}|Paste (Match Style)|⌥ ⇧ ⌘ V
+General Editing|${i_edit}|Undo|⌘ Z
+General Editing|${i_edit}|Redo|⇧ ⌘ Z
+General Editing|${i_edit}|Select All|⌘ A
+General Editing|${i_file}|Print|⌘ P
+General Editing|${i_file}|Save|⌘ S
+General Editing|${i_file}|Save As|⇧ ⌘ S
+Text Navigation|${i_move}|Start of line|⌘ ←
+Text Navigation|${i_move}|End of line|⌘ →
+Text Navigation|${i_move}|Top of doc|⌘ ↑
+Text Navigation|${i_move}|Bottom of doc|⌘ ↓
+Text Navigation|${i_move}|Delete prev word|⌥ ⌫
+Text Navigation|${i_move}|Delete next word|⌥ Fn ⌫
+Text Navigation|${i_move}|Move Line Up|⌥ ↑
+Text Navigation|${i_move}|Move Line Down|⌥ ↓
+Finder / Files|${i_file}|Rename item|Return
+Finder / Files|${i_file}|Open item|⌘ O (or ↓)
+Finder / Files|${i_file}|Go to parent|⌘ ↑
+Finder / Files|${i_file}|Quick Look|Space
+Finder / Files|${i_file}|New Folder|⇧ ⌘ N
+Finder / Files|${i_file}|Get Info|⌘ I
+Finder / Files|${i_file}|Show Hidden Files|⇧ ⌘ .
+Finder / Files|${i_file}|Duplicate|⌘ D
+Finder / Files|${i_file}|Move to Trash|⌘ ⌫
+Finder / Files|${i_file}|Empty Trash|⇧ ⌘ ⌫
+Finder / Files|${i_file}|Go to Folder...|⇧ ⌘ G
+Window Mgmt|${i_win}|Switch Apps|⌘ Tab
+Window Mgmt|${i_win}|Switch Window (App)|⌘ \`
+Window Mgmt|${i_win}|Mission Control|Ctrl ↑
+Window Mgmt|${i_win}|Show Desktop|⌘ F3
+Window Mgmt|${i_win}|Minimize|⌘ M
+Window Mgmt|${i_win}|Hide Current App|⌘ H
+Window Mgmt|${i_win}|Full Screen|Ctrl ⌘ F
+Window Mgmt|${i_win}|Close Window|⌘ W
+Window Mgmt|${i_win}|Quit App|⌘ Q
+Screenshots|${i_screen}|Menu (All tools)|⇧ ⌘ 5
+Screenshots|${i_screen}|Capture Screen|⇧ ⌘ 3
+Screenshots|${i_screen}|Capture Selection|⇧ ⌘ 4
+Screenshots|${i_screen}|Save to Clipboard|Hold Ctrl + Shot
+Browser|${i_web}|New Tab|⌘ T
+Browser|${i_web}|Close Tab|⌘ W
+Browser|${i_web}|Reopen Closed Tab|⇧ ⌘ T
+Browser|${i_web}|Next Tab|Ctrl Tab
+Browser|${i_web}|Prev Tab|Ctrl ⇧ Tab
+Browser|${i_web}|Focus URL Bar|⌘ L
+Browser|${i_web}|Reload Page|⌘ R
+Browser|${i_web}|Find on page|⌘ F
+Browser|${i_web}|Downloads|⌥ ⌘ L
+Terminal|${i_term}|Interrupt/Stop|Ctrl C
+Terminal|${i_term}|Clear Screen|⌘ K
+Terminal|${i_term}|Clear Line|Ctrl U
+Terminal|${i_term}|Search History|Ctrl R
+Terminal|${i_term}|New Tab|⌘ T
+Terminal|${i_term}|Split Pane|⌘ D
+Power|${i_power}|Sleep Display|Ctrl ⇧ Eject
+Power|${i_power}|Sleep Mac|⌥ ⌘ Eject
+Power|${i_power}|Force Restart|Ctrl ⌘ Power
+EOM
+
+
+#   [ 3 ]  P A R S I N G   L O G I C
+#   -----------------------------------------------------------------------
+#   Process the data using awk to inject colors.
+#   We use '@' as the separator for the `column` command.
+
+formatted_list=$(echo "$input_data" | awk -F '|' \
+    -v r="$c_reset" \
+    -v d="$c_desc" \
+    -v k="$c_key" \
+    -v dim="$c_dim" \
+    'NF==4 {
+        # Format: Icon Cat (Color) @ Action (White) @ Key (Yellow)
+        printf "%s%s %-15s%s @%s%-25s%s @%s%s%s\n", $2, $1, $1, dim, d, $3, dim, k, $4, r
+    }')
+
+
+#   [ 4 ]  D I S P L A Y   L O G I C
+#   -----------------------------------------------------------------------
+
+if command -v fzf >/dev/null 2>&1; then
+
+    # Define copy command (pbcopy on Mac, xclip/xsel on Linux fallback)
+    copy_cmd=""
+    if command -v pbcopy >/dev/null 2>&1; then
+        # Mac OS Copy
+        copy_cmd="--bind 'enter:execute(echo {} | awk -F \"@\" \"{print \$3}\" | perl -pe \"s/\x1b\[[0-9;]*m//g\" | xargs | pbcopy)+abort'"
+    elif command -v xclip >/dev/null 2>&1; then
+        # Linux X11 Copy
+        copy_cmd="--bind 'enter:execute(echo {} | awk -F \"@\" \"{print \$3}\" | perl -pe \"s/\x1b\[[0-9;]*m//g\" | xargs | xclip -selection clipboard)+abort'"
+    fi
+
+    # Run FZF
+    echo "$formatted_list" | column -t -s '@' | fzf \
+        --ansi \
+        --header=" ${i_apple}  macOS Keyboard Shortcuts " \
+        --header-first \
+        --layout=reverse \
+        --height=55% \
+        --border="rounded" \
+        --info="inline" \
+        --color="header:italic:underline:blue,fg+:white,pointer:red,spinner:yellow" \
+        --prompt="Search > " \
+        --pointer="➜" \
+        --marker="✓" \
+        $copy_cmd
+
+    # Exit success if something was selected
+    if [[ $? -eq 0 && -n "$copy_cmd" ]]; then
+        echo -e "${c_key}✔ Shortcut copied to clipboard.${c_reset}"
+    fi
+    exit 0
+fi
+
+
+#   [ 5 ]  F A L L B A C K   M O D E
+#   -----------------------------------------------------------------------
+#   Used if fzf is missing.
+
+if [[ -n "$1" ]]; then
+    echo -e "\n${c_cat}Search results for: ${c_desc}$1${c_reset}"
+    echo "$formatted_list" | column -t -s '@' | grep -i "$1"
+else
+    echo -e "\n  ${c_key}⌘ macOS Shortcuts List${c_reset}\n"
+    echo "$formatted_list" | column -t -s '@' | less -R
+fi

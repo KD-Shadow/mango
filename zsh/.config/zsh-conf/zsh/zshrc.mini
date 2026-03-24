@@ -1,0 +1,228 @@
+#!/usr/bin/env zsh
+#    ░▀▀█░█▀▀░█░█░█▀▄░█▀▀░░░░█▄█░▀█▀░█▀█░▀█▀
+#    ░▄▀░░▀▀█░█▀█░█▀▄░█░░░░░░█░█░░█░░█░█░░█░
+#    ░▀▀▀░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░░▀░▀░▀▀▀░▀░▀░▀▀▀
+
+# ------------------------------------------------------------------------------
+# File Purpose
+#   This file acts as a standalone "Mini-Zshrc" configuration.
+#   It consolidates History, Completion, Prompt, Aliases, and Session logic
+#   into a single file for minimalist or portable setups.
+#
+# Problems Solved
+#   - sets up persistent command history with de-duplication.
+#   - Initializes the completion system with smart caching (speed boost).
+#   - Defines a clean, functional prompt with git/status indicators.
+#   - Provides safety aliases and optional Tmux auto-launching.
+#
+# Features / Responsibilities
+#   - History Management (Size, Ignore patterns, sharing).
+#   - Completion System (compinit, colors, menu selection).
+#   - Visual Prompt (User, Host, Directory, Status).
+#   - Vi-Mode Keybindings.
+#
+# Usage Notes
+#   - This file assumes standard Zsh options are available.
+#   - Adjust 'HISTORY_IGNORE' to filter out sensitive or trivial commands.
+#
+
+# ------------------------------------------------------------------------------
+
+
+# History Configuration
+# ───────────────────────────────────────────────────────────────────────
+## Defines how the shell remembers previous commands.
+## We prioritize a large history size with aggressive de-duplication to
+## keep the history file useful and clean.
+
+# ── history options ────────────────────────────────────────────────────
+
+setopt EXTENDED_HISTORY          # Save timestamp and duration (:start:elapsed;command)
+setopt SHARE_HISTORY             # Share history immediately across running tabs/panes
+setopt EXTENDED_GLOB             # Enable advanced pattern matching (needed for IGNORE)
+
+# File location and size limits
+HISTFILE="$ZSH_CACHE/zhistory"
+HISTSIZE=50000
+SAVEHIST=50000
+
+# Pattern to ignore specific commands from history.
+# Requires 'EXTENDED_GLOB' to handle the '(...|...)' syntax.
+HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
+
+# ── duplication control ────────────────────────────────────────────────
+
+setopt HIST_EXPIRE_DUPS_FIRST    # Delete duplicates first when HISTSIZE is reached
+setopt HIST_IGNORE_DUPS          # Ignore entry if it matches the immediately previous one
+setopt HIST_IGNORE_ALL_DUPS      # Delete *old* duplicates if a new one is added
+setopt HIST_FIND_NO_DUPS         # Do not show duplicates when searching (Ctrl+R)
+setopt HIST_IGNORE_SPACE         # Ignore commands starting with a space ( " secret_cmd")
+setopt HIST_SAVE_NO_DUPS         # Do not write duplicate entries to the disk file
+setopt HIST_REDUCE_BLANKS        # Trim extra whitespace before saving
+
+
+# Completion Engine Initialization
+# ───────────────────────────────────────────────────────────────────────
+## Smart caching logic for `compinit`.
+## Re-running `compinit` on every shell start is slow. We only run it fully once every 24 hours.
+
+_comp_options+=(globdots)
+
+# Glob Logic:
+# #q : Start glob qualifiers
+# N  : Nullglob (don't error if file missing)
+# .  : Plain files only
+# mh : Modification time in hours
+# +24: Older than 24 hours
+if [[ ! -f "$ZSH_COMPLETION_DUMP" || -n "$ZSH_COMPLETION_DUMP"(#qN.mh+24) ]]; then
+
+    # Scenario A: Cache is old or missing. Rebuild.
+    # -i: Ignore insecure directories (don't ask user)
+    # -u: Use insecure directories (silently)
+    # -d: Dump path
+    compinit -i -u -d "$ZSH_COMPLETION_DUMP"
+
+    # Touch the file to reset its modification time, preventing compaudit loops
+    touch "$ZSH_COMPLETION_DUMP"
+else
+
+    # Scenario B: Cache is fresh. Fast Load.
+    # -C: Skip ALL security checks, trust the dump file
+    compinit -C -d "$ZSH_COMPLETION_DUMP"
+fi
+
+# Compile for speed
+if [[ ! -f "$ZSH_COMPLETION_DUMP.zwc" || "$ZSH_COMPLETION_DUMP" -nt "$ZSH_COMPLETION_DUMP.zwc" ]]; then
+    zcompile "$ZSH_COMPLETION_DUMP" &!
+fi
+
+# ── style configuration ────────────────────────────────────────────────
+
+# Matcher List: Allows case-insensitive completion (a matching A)
+# and partial matching (f.b expanding to foo.bar).
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Colors: Use the system LS_COLORS for completion menu items
+# (s.:.) splits the LS_COLORS string by colon
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+# Menu: Enable interactive selection menu (highlighting)
+zstyle ':completion:*' menu select
+
+
+# Prompt Configuration
+# ───────────────────────────────────────────────────────────────────────
+## Visual configuration for the command line prompt (PS1).
+## Keeps it minimal: "User Host [Directory] StatusSymbol"
+
+# ── components ─────────────────────────────────────────────────────────
+
+# Note: We group adjacent colors (Bold + Blue) into a single %{...%} wrapper for cleanliness.
+
+# Format: User (Blue) Host (Yellow) separated by Red slash
+local prompt_user_host="%{${COLOR[BOLD]}${COLOR[BLUE]}%}%n %{${COLOR[RED]}%}/ %{${COLOR[YELLOW]}%}%m%{${COLOR[RESET]}%}"
+
+# Format: Current Directory (Grey), Italicized
+local prompt_current_dir="%{${COLOR[ITALIC]}${COLOR[DIM]}%}[%~]%{${COLOR[RESET]}%}"
+
+# Format: Arrow symbol changing color based on exit status
+# Logic: %(?.Success.Failure)
+# We must wrap the colors INSIDE the conditional branches.
+local prompt_status_symbol="%(?.%{${COLOR[BOLD]}${COLOR[GREEN]}%} .%{${COLOR[RED]}%} )%{${COLOR[RESET]}%}"
+
+# ── assembly ───────────────────────────────────────────────────────────
+
+# We use simple double quotes here because the heavy lifting was done above.
+PS1="${prompt_user_host} ${prompt_current_dir}${prompt_status_symbol} "
+
+
+# Aliases
+# ───────────────────────────────────────────────────────────────────────
+## Command shortcuts and modern replacements.
+## Only loads if the feature flag is enabled.
+
+if [[ "${LOAD_CUSTOM_ALIASES:l}" == "yes" ]]; then
+
+    # ── core replacements ──────────────────────────────────────────────────
+    # Check if modern alternatives exist before aliasing.
+
+    # Cat -> Bat (Syntax highlighting)
+    if (( $+commands[bat] )); then
+        alias cat="bat --theme=TwoDark"
+    fi
+
+    # Ls -> Eza (Icons, Git status)
+    if (( $+commands[eza] )); then
+        alias ls='eza --icons=always --color=always -a'
+        alias ll='eza --icons=always --color=always -la'
+    else
+        alias ll='ls -la'
+    fi
+
+    # Vim -> Neovim
+    if (( $+commands[nvim] )); then
+        alias v='nvim'
+        alias vim='nvim'
+    fi
+
+    # Python
+    if (( $+commands[python3] )); then
+        alias py='python3'
+    elif (( $+commands[python] )); then
+        alias py='python'
+    fi
+
+    # ── shell management ───────────────────────────────────────────────────
+
+    # Reload Config: Replaces current process with new Zsh instance.
+    # ---- NOTE: Using 'exec' ensures a clean slate, unlike 'source'.
+    alias reload="exec zsh"
+    alias zsh="exec zsh"
+
+    # ── navigation ─────────────────────────────────────────────────────────
+    alias dv="cd ~/Developer/"
+
+    # ── tmux utilities ─────────────────────────────────────────────────────
+    alias tkill='tmux kill-session -t'
+
+    # Smart Exit:
+    # If in Tmux: Kill the specific session.
+    # If in Zsh:  Just exit the shell.
+    alias ':q'='[ -n "$TMUX" ] && tmux kill-session -t $(tmux display-message -p "#S") || exit'
+fi
+
+
+# Vi Mode & Keybindings
+# ───────────────────────────────────────────────────────────────────────
+## Enables Vim-style navigation on the command line.
+
+if [[ "${ENABLE_VI_MODE:l}" == "yes" ]]; then
+    bindkey -v
+
+    # Reduce key delay (latency) for mode switching
+    export KEYTIMEOUT=1
+
+    # ── fixes ────────────────────────────────────────────────────────────────────────
+    # Re-bind standard keys that Vi-mode often breaks
+
+    bindkey '^?' backward-delete-char                  # Backspace
+    bindkey '^h' backward-delete-char                  # Ctrl + H
+    bindkey '^r' history-incremental-search-backward   # Ctrl + R
+fi
+
+
+# Tmux Auto-Start
+# ───────────────────────────────────────────────────────────────────────
+## Automatically launches or attaches to a Tmux session on login.
+## Checks:
+## 1. Feature enabled?
+## 2. Tmux installed?
+## 3. Not already in Tmux?
+## 4. Is this a terminal (stdin is tty)?
+
+if [[ "${ENABLE_AUTO_TMUX:l}" == "yes" ]] && (( $+commands[tmux] )) && [[ -z "$TMUX" && -t 0 ]]; then
+    # -A: Attach to existing session if it exists
+    # -s: Session name ('b001')
+    exec tmux new-session -A -s b001
+fi
+

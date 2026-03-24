@@ -1,0 +1,236 @@
+#!/usr/bin/env zsh
+
+# ------------------------------------------------------------------------------
+#  🚀 MODERN DOTFILES UPDATER
+#  Handles Git updates for Zsh, Nvim, and System configurations.
+# ------------------------------------------------------------------------------
+
+# --- OS Detection ---
+IS_MAC=false
+[[ "$OSTYPE" == "darwin"* ]] && IS_MAC=true
+
+# --- Configuration (Read-Only) ---
+typeset -r PATH_DOTFILES="$HOME/dotfiles"
+typeset -r PATH_ZSH_CONF=${ZSH_PATH:-"$HOME/.config/zsh-conf"}
+typeset -r PATH_NVIM_CONF="$HOME/.config/nvim"
+
+# --- Visuals (Zsh Prompt Expansion) ---
+# %F{...} only works inside 'print -P' or prompts (PS1)
+typeset -r ICON_GIT="%F{yellow}📦%f"
+typeset -r ICON_OK="%F{green}✅%f"
+typeset -r ICON_ERR="%F{red}❌%f"
+typeset -r ICON_WARN="%F{magenta}⚠️%f"
+typeset -r ICON_INFO="%F{blue}ℹ️%f"
+
+# --- Helper Functions ---
+
+# Print a section header
+print_section_header() {
+    print -P "\n%B%F{blue}:: $1%f%b"
+}
+
+# Wrapper for removing local changes or stashing
+resolve_git_conflict() {
+    local repo_name="$1"
+
+    print -P "\n${ICON_WARN} %BLocal changes detected in $repo_name.%b"
+    print -P "  [r] Reset Hard (Discard changes)"
+    print -P "  [s] Stash & Apply (Keep changes)"
+
+    # FIX: Use print -P for the prompt to support colors, then read cleanly
+    print -P -n "  > Select option [r/s]: "
+    read -k 1 user_action
+    echo # Newline
+
+    if [[ "$user_action" == "r" ]]; then
+        print -P "  ${ICON_ERR} Discarding local changes..."
+        git reset --hard HEAD
+        git pull --quiet
+    elif [[ "$user_action" == "s" ]]; then
+        # 1. Capture list of currently deleted files
+        #    We use diff-filter=D to find deletions, and (@f) to split by newline into an array
+        local deleted_files=("${(@f)$(git diff --name-only --diff-filter=D)}")
+
+        print -P "  ${ICON_GIT} Stashing changes..."
+        git stash >/dev/null 2>&1
+        git pull --quiet
+
+        # 2. Restore changes (This might fail to delete files if conflicts occur)
+        git stash pop >/dev/null 2>&1
+
+        # 3. Enforce deletions
+        #    If a file was deleted before stashing, ensure it stays deleted
+        for file in "${deleted_files[@]}"; do
+            if [[ -e "$file" ]]; then
+                rm -rf "$file" >/dev/null 2>&1
+                # print -P "  ${ICON_WARN} Enforcing deletion of: $file"
+            fi
+        done
+    else
+        print -P "  ${ICON_WARN} Skipped git operations."
+    fi
+}
+
+# Generic Repo Updater
+update_repository() {
+    local repo_path="$1"
+    local repo_display_name="$2"
+    local skip_prompt="$3"
+
+    if [[ -d "$repo_path" && -d "$repo_path/.git" ]]; then
+        local should_proceed=false
+
+        if [[ "$skip_prompt" == "true" ]]; then
+            should_proceed=true
+        else
+            # FIX: Broken color codes in read prompt
+            # We print the colored prompt first using print -P
+            print -P -n "${ICON_GIT} Check updates for %B$repo_display_name%b? [y/N] "
+
+            # Read one character (-q automatically handles y/n logic)
+            if read -q; then
+                should_proceed=true
+            else
+                should_proceed=false
+            fi
+            echo # Newline to prevent text merging
+        fi
+
+        if [[ "$should_proceed" == "true" ]]; then
+            cd "$repo_path" || return
+            print -P "  → Fetching $repo_display_name..."
+            git fetch --quiet
+
+            # Check status relative to upstream
+            local branch_status
+            branch_status=$(git status -uno)
+
+            if [[ "$branch_status" == *"Your branch is behind"* ]]; then
+                 # Check for local uncommitted modifications
+                if [[ -n $(git status --porcelain) ]]; then
+                    resolve_git_conflict "$repo_display_name"
+                else
+                    git pull --quiet
+                fi
+                print -P "  ${ICON_OK} $repo_display_name updated successfully."
+            elif [[ "$branch_status" == *"Your branch is up to date"* ]]; then
+                print -P "  ${ICON_OK} $repo_display_name is already up to date."
+            else
+                # Diverged state or other complex status
+                resolve_git_conflict "$repo_display_name"
+                print -P "  ${ICON_OK} $repo_display_name updated."
+            fi
+        fi
+    else
+        print -P "  ${ICON_ERR} $repo_display_name not found at $repo_path"
+    fi
+}
+
+# Cleanup Function
+remove_artifacts() {
+    print_section_header "Cleaning up artifacts"
+
+    local cleanup_targets=(
+        "$HOME/.tmux"
+        "$HOME/Installer"
+        "$PATH_ZSH_CONF/install.zsh"
+        "$PATH_ZSH_CONF/LICENSE"
+        "$PATH_ZSH_CONF/README.md"
+        "$HOME/.bash_history"
+        "$HOME/.wget-hsts"
+    )
+
+    for target in "${cleanup_targets[@]}"; do
+        if [[ -e "$target" ]]; then
+            rm -rf "$target"
+            print -P "  ${ICON_ERR} Deleted: $target"
+        fi
+    done
+}
+
+# --- Main Execution ---
+
+clear
+print -P "%B%F{cyan}╔════════════════════════════════════════╗%f"
+print -P "%B%F{cyan}║      SYSTEM CONFIGURATION UPDATER      ║%f"
+print -P "%B%F{cyan}╚════════════════════════════════════════╝%f%b"
+print -P "%B%F{cyan}             :: Script by @adityastomar67%f%b"
+print
+
+# Handle CLI Flags
+local flag_only_zsh=false
+local flag_only_nvim=false
+local flag_update_all=false
+
+if [[ $# -gt 0 ]]; then
+    case "$1" in
+        -n|--nvim) flag_only_nvim=true ;;
+        -z|--zsh)  flag_only_zsh=true ;;
+        *)         print -P "${ICON_ERR} Usage: $0 [-n|--nvim] [-z|--zsh]"; exit 1 ;;
+    esac
+else
+    flag_update_all=true
+fi
+
+# 1. Update Dotfiles Master
+if [[ "$flag_update_all" == "true" ]]; then
+    update_repository "$PATH_DOTFILES" "Master Dotfiles" "true"
+fi
+
+# 2. Update Components
+if [[ "$flag_update_all" == "true" || "$flag_only_nvim" == "true" ]]; then
+    # Force update (skip prompt) if the specific flag was passed
+    update_repository "$PATH_NVIM_CONF" "Neovim" "$flag_only_nvim"
+fi
+
+if [[ "$flag_update_all" == "true" || "$flag_only_zsh" == "true" ]]; then
+    update_repository "$PATH_ZSH_CONF" "Zsh Config" "$flag_only_zsh"
+fi
+
+# 3. System Reloads (Window Manager)
+if [[ "$flag_update_all" == "true" && $IS_MAC == "false" ]]; then
+    print_section_header "Reloading System Configurations"
+
+    # Reload BSPWM
+    if command -v bspc >/dev/null; then
+        print -P "  ${ICON_INFO} Reloading BSPWM..."
+        bspc wm -r
+    fi
+
+    # Reload SXHKD
+    if pgrep -x "sxhkd" >/dev/null; then
+        print -P "  ${ICON_INFO} Reloading Keys (sxhkd)..."
+        pkill -USR1 -x sxhkd
+    fi
+
+    # Reload Xresources / ST
+    if [[ -f "$HOME/.config/bspwm/xresources" ]]; then
+        xrdb merge "$HOME/.config/bspwm/xresources"
+        if pgrep -x "st" >/dev/null; then
+             print -P "  ${ICON_INFO} Reloading st terminal..."
+             kill -USR1 $(pidof st)
+        fi
+    fi
+
+    # Reload Dunst
+    if command -v dunstify >/dev/null; then
+         dunstify -u low -i ~/.config/bspwm/assets/reload.svg 'System Update' 'Configuration reloaded successfully.'
+    fi
+elif [[ $IS_MAC == "true" ]]; then
+    osascript -e 'display notification "Configuration reloaded successfully" with title "System Update"'
+fi
+
+# 4. Finalize
+if [[ "$flag_update_all" == "true" ]]; then
+    # Fix Permissions
+    if [[ -d "$HOME/.config/bspwm/scripts" ]]; then
+        chmod +x "$HOME/.config/bspwm/scripts/"*
+    fi
+
+    remove_artifacts
+
+    print_section_header "Complete"
+    print -P "  ${ICON_OK} Reloading Zsh environment..."
+    sleep 1
+    exec zsh
+fi

@@ -1,0 +1,218 @@
+#!/usr/bin/env zsh
+#  ╦═╗╔═╗╔╗╔╔╦╗╔═╗╔╦╗  ╦ ╦╔═╗╦  ╦
+#  ╠╦╝╠═╣║║║ ║║║ ║║║║  ║║║╠═╣║  ║
+#  ╩╚═╩ ╩╝╚╝═╩╝╚═╝╩ ╩  ╚╩╝╩ ╩╩═╝╩═╝
+#
+#  :: Cross-platform Random Wallpaper Manager (Zsh Version)
+#  :: Auto-downloads from git if empty.
+#  :: Supports: Linux (Feh/Nitrogen) & macOS.
+#  :: Created By: GitHub@adityastomar67
+#
+#  USAGE:
+#      1. Make executable: chmod +x RandomWall
+#      2. Run:                 ./RandomWall              (Sets random wallpaper)
+#      3. Update:              ./RandomWall --update     (Re-downloads collection)
+#      4. Numbered-selection:  ./RandomWall --number 32  (Downloads 32nd wallpaper)
+
+
+# ==============================================================================
+# [1] CONFIGURATION
+# ==============================================================================
+
+typeset -r REPO_USER="adityastomar67"
+typeset -r REPO_NAME="Wallpapers"
+typeset -r BRANCH="main"
+
+typeset -r API_URL="https://api.github.com/repos/${REPO_USER}/${REPO_NAME}/git/trees/${BRANCH}?recursive=1"
+typeset -r RAW_BASE="https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}"
+
+typeset -r CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh-cache/RandomWall"
+typeset -r MANIFEST_FILE="$CACHE_DIR/wallpaper-manifest.txt"
+
+# ==============================================================================
+# [2] UTILITIES
+# ==============================================================================
+
+has_internet() {
+    curl -s --head --request GET "https://github.com" | grep "200" > /dev/null
+}
+
+notify_user() {
+    local title="$1"
+    local msg="$2"
+    case "$(uname -s)" in
+        Darwin*) osascript -e "display notification \"$msg\" with title \"$title\"" ;;
+        Linux*)
+            if command -v dunstify >/dev/null 2>&1; then
+                dunstify -u low -r 9912 "$title" "$msg"
+            elif command -v notify-send >/dev/null 2>&1; then
+                notify-send "$title" "$msg"
+            else
+                print ":: $title - $msg"
+            fi
+            ;;
+    esac
+}
+
+fetch_manifest() {
+    if ! has_internet; then
+        print -u2 ":: Offline. Cannot update manifest."
+        return 1
+    fi
+
+    notify_user "RandomWall" "Fetching file list from GitHub..."
+
+    local raw_list
+    raw_list=$(curl -s "$API_URL" | \
+               grep '"path":' | \
+               grep -E '\.(jpg|jpeg|png)"' | \
+               awk -F '"' '{print $4}')
+
+    if [[ -z "$raw_list" ]]; then
+        notify_user "RandomWall" "Error: GitHub API returned no images."
+        return 1
+    fi
+
+    print "$raw_list" > "$MANIFEST_FILE"
+    notify_user "RandomWall" "Manifest updated ($(wc -l < "$MANIFEST_FILE" | tr -d ' ') images found)."
+}
+
+# ------------------------------------------------------------------------------
+# :: Download Image (Fixed Version)
+# ------------------------------------------------------------------------------
+download_image() {
+    local remote_path="$1"
+
+    # URL Encode spaces
+    local safe_path="${remote_path// /%20}"
+    local full_url="${RAW_BASE}/${safe_path}"
+    local extension="${remote_path##*.}"
+    local target="$CACHE_DIR/wallpaper.${extension}"
+
+    # Debugging to Stderr
+    print -u2 ":: Downloading: $remote_path"
+
+    # Clean old files
+    command rm -f "$CACHE_DIR"/wallpaper.*
+
+    if curl -s -L -o "$target" "$full_url"; then
+        # ONLY ECHO THE PATH TO STDOUT
+        print "$target"
+        return 0
+    else
+        print -u2 ":: Error: Download failed."
+        return 1
+    fi
+}
+
+apply_wallpaper() {
+    local img="$1"
+    local os_name="$(uname -s)"
+
+    case "$os_name" in
+        Linux*)
+            if command -v feh >/dev/null 2>&1; then
+                feh --no-fehbg --bg-fill "$img"
+            elif command -v nitrogen >/dev/null 2>&1; then
+                nitrogen --set-zoom-fill "$img" --save
+            else
+                print -u2 "Error: Install 'feh' or 'nitrogen'."
+                return 1
+            fi
+            ;;
+        Darwin*)
+            osascript -e "tell application \"System Events\" to set picture of every desktop to \"$img\""
+            ;;
+    esac
+}
+
+# ==============================================================================
+# [3] MAIN EXECUTION
+# ==============================================================================
+
+main() {
+    mkdir -p "$CACHE_DIR"
+
+    # Variables for arguments
+    local target_index=""
+    local force_update=0
+
+    # 1. Parse Arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -u|--update)
+                force_update=1
+                shift
+                ;;
+            -n|--number)
+                target_index="$2"
+                shift 2
+                ;;
+            *)
+                shift
+                ;;
+        esac
+    done
+
+    # 2. Update Manifest Logic
+    if [[ $force_update -eq 1 || ! -s "$MANIFEST_FILE" ]]; then
+        fetch_manifest
+    fi
+
+    # 3. Verify Manifest
+    if [[ ! -s "$MANIFEST_FILE" ]]; then
+        print -u2 "Error: No manifest found. Check connection and run with --update."
+        exit 1
+    fi
+
+    # 4. Load Manifest into Array
+    # (zsh reads file lines into array, 1-indexed)
+    local lines=("${(@f)$(<"$MANIFEST_FILE")}")
+    local total_count=${#lines[@]}
+
+    if [[ $total_count -eq 0 ]]; then
+        print -u2 "Error: Manifest is empty."
+        exit 1
+    fi
+
+    # 5. Selection Logic (Random vs Specific)
+    local selected_index
+
+    if [[ -n "$target_index" ]]; then
+        # Validate user input
+        if [[ ! "$target_index" =~ ^[0-9]+$ ]]; then
+            print -u2 "Error: '$target_index' is not a valid number."
+            exit 1
+        fi
+
+        if (( target_index < 1 || target_index > total_count )); then
+            print -u2 "Error: Number $target_index is out of range (1 - $total_count)."
+            exit 1
+        fi
+        selected_index=$target_index
+    else
+        # Random
+        selected_index=$(( (RANDOM % total_count) + 1 ))
+    fi
+
+    local selected_path="${lines[$selected_index]}"
+
+    # Trim whitespace
+    selected_path="${selected_path#"${selected_path%%[![:space:]]*}"}"
+
+    print ":: Selected [$selected_index/$total_count]: $selected_path"
+
+    # 6. Download & Apply
+    local local_image
+    local_image=$(download_image "$selected_path")
+
+    if [[ -f "$local_image" && -s "$local_image" ]]; then
+        apply_wallpaper "$local_image"
+        notify_user "RandomWall" "Applied #$selected_index: $(basename "$selected_path")"
+    else
+        notify_user "RandomWall" "Download failed."
+        exit 1
+    fi
+}
+
+main "$@"

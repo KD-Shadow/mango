@@ -1,0 +1,146 @@
+#!/usr/bin/env zsh
+#    ░█░█░▀█▀░░░░█▀▄░█▀▀░█▀█░█▀▀░█░█░█▄█░█▀█░█▀▄░█░█
+#    ░█░█░░█░░░░░█▀▄░█▀▀░█░█░█░░░█▀█░█░█░█▀█░█▀▄░█▀▄
+#    ░▀▀▀░▀▀▀░▀░░▀▀░░▀▀▀░▀░▀░▀▀▀░▀░▀░▀░▀░▀░▀░▀░▀░▀░▀
+
+# ------------------------------------------------------------------------------
+# File Purpose
+#   This script generates the visual "Report Card" displayed after Zsh finishes
+#   loading. It calculates a performance rating and renders a top-10 list
+#   of the slowest functions using 'zprof'.
+#
+# Problems Solved
+#   - Contextualizes raw milliseconds into human-readable ratings (e.g., "Fast").
+#   - Visualizes bottlenecks with a bar chart.
+#   - Filters verbose 'zprof' output into a clean summary table.
+#
+# Features / Responsibilities
+#   - Performance Rating Logic (Blazing vs Sluggish).
+#   - Boxed UI Rendering.
+#   - AWK processing of profiling data.
+#
+# Usage Notes
+#   - Requires 'zprof' to be enabled in the entry point.
+#   - Expects '$total_duration_ms' to be calculated before sourcing.
+# ------------------------------------------------------------------------------
+
+
+# 0. Safety Checks & Dependencies
+# ───────────────────────────────────────────────────────────────────────
+## Ensure we have the necessary data and color definitions before rendering.
+
+# Exit if the duration variable wasn't set by the parent script
+[[ -z "$total_duration_ms" ]] && return
+
+
+# 1. Performance Rating System
+# ───────────────────────────────────────────────────────────────────────
+## Categorizes the startup time into human-readable levels.
+
+local LABEL="Unknown"
+local COL=${COLOR[WHITE]}
+
+if (( total_duration_ms < 40 )); then
+    LABEL=" Blazing"
+    COL=${COLOR[GREEN]}
+
+elif (( total_duration_ms < 100 )); then
+    LABEL=" Fast"
+    COL=${COLOR[CYAN]}
+
+elif (( total_duration_ms < 200 )); then
+    LABEL="  Acceptable"
+    COL=${COLOR[YELLOW]}
+
+else
+    LABEL="  Sluggish"
+    COL=${COLOR[RED]}
+fi
+
+
+# 2. Header Rendering
+# ───────────────────────────────────────────────────────────────────────
+## Draws the top box containing the total time and rating.
+
+clear
+local DISP="BENCHMARK"
+if [[ "${ENABLE_MINIMAL_MODE:l}" == "yes" ]]; then
+    DISP="${COLOR[YELLOW]}[MINIMAL]${COLOR[RESET]}"
+fi
+
+# Top Border
+print -f "${COLOR[DIM]} ╭───────────────────────────────────────────────────╮${COLOR[RESET]}\n"
+
+# Single Printf (Standardized Spacing)
+#    We use literal spaces instead of %s padding to handle the color codes correctly.
+print -f \
+    "${COLOR[DIM]} │${COLOR[RESET]}  ZSH %s        ${COL}%-16s${COLOR[RESET]} ${COL}%6.2f ms${COLOR[RESET]}  ${COLOR[DIM]}│${COLOR[RESET]}\n" \
+    "$DISP" \
+    "$LABEL" \
+    "$total_duration_ms"
+
+# Bottom Border
+print -f "${COLOR[DIM]} ╰───────────────────────────────────────────────────╯${COLOR[RESET]}\n"
+
+
+# 3. Profiling Data Table
+# ───────────────────────────────────────────────────────────────────────
+## parses the 'zprof' output to find the most expensive function calls.
+## We use 'awk' to generate a visual bar chart inline.
+
+# Table Headers
+print -f "   ${COLOR[BOLD]}${COLOR[DIM]}%-25s %-10s %-8s %s${COLOR[RESET]}\n" "FUNCTION" "TIME" "CALLS" "LOAD"
+
+# Process Zprof Data
+zprof | awk \
+    -v color_norm="${COLOR[WHITE]}" \
+    -v color_dim="${COLOR[DIM]}" \
+    -v color_warn="${COLOR[RED]}" \
+    -v color_reset="${COLOR[RESET]}" \
+    -v color_func="${COLOR[MAGENTA]}" \
+    '{
+        # 1. Filter: Only process lines starting with a number
+        if ($1 !~ /^[0-9]+\)$/) next
+
+        # 2. Extract Name
+        fn_name = $NF
+
+        # 3. DEDUPLICATION
+        if (seen[fn_name]++) next
+
+        # 4. Limit: Top 10 only
+        if (count++ >= 10) exit
+
+        # --- FIX: TRUNCATE LONG NAMES ---
+        # If name is longer than 24 chars, cut it and add ".."
+        if (length(fn_name) > 24) {
+            fn_name = substr(fn_name, 1, 22) ".."
+        }
+
+        # 5. Extract Metrics
+        calls   = $2
+        time_ms = $3 + 0
+        percent = $5 + 0
+
+        # 6. Color Logic
+        time_color = color_dim
+        if (time_ms > 5)  time_color = color_norm
+        if (time_ms > 20) time_color = color_warn
+
+        # 7. Bar Chart
+        bar_len = int(percent / 5)
+        bar_visual = ""
+        for(i=0; i<bar_len; i++) bar_visual = bar_visual "■"
+        if (bar_visual == "" && percent > 0) bar_visual = "·"
+
+        # 8. Print
+        printf "   %s%-25s%s %s%-10s%s %s%-8s%s %s%s%s\n",
+            color_func, fn_name, color_reset,
+            time_color, time_ms, color_reset,
+            color_dim,  calls,   color_reset,
+            time_color, bar_visual, color_reset
+    }'
+
+[[ "${ENABLE_MINIMAL_MODE:l}" != "yes" ]] && print -f \
+    "\n${COLOR[DIM]}  For detailed analysis:${COLOR[RESET]} ${COLOR[BOLD]}${COLOR[BLUE]}\`_zsh_debug_startup\`${COLOR[RESET]}\n\n" || \
+    printf "\n"

@@ -1,0 +1,379 @@
+#!/usr/bin/env zsh
+
+#    ░█▀▀░█▀█░█▀▄░█▀▀░░░░█░█░▀█▀░▀█▀░█░░░█▀▀
+#    ░█░░░█░█░█▀▄░█▀▀░░░░█░█░░█░░░█░░█░░░▀▀█
+#    ░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░░▀▀▀░░▀░░▀▀▀░▀▀▀░▀▀▀
+
+# ------------------------------------------------------------------------------
+# File Purpose
+#   This is the core utility library for the Zsh configuration. It provides
+#   fundamental functions for plugin management, caching, path manipulation,
+#   and lazy loading.
+#
+# Problems Solved
+#   - Manages the $PATH variable (preventing duplicates).
+#   - Provides a lightweight plugin manager (`plug`).
+#   - Speeds up external tool initialization via caching (`_eval_cache`).
+#   - Provides safe file editing wrappers.
+#
+# Features / Responsibilities
+#   - `plug()`: Git-based plugin manager.
+#   - `is_installed()`: Cached command checker.
+#   - `_eval_cache()`: Output cacher for slow init commands.
+#   - Path / Fpath construction.
+#
+# Usage Notes
+#   - This file should be sourced very early in .zshrc.
+#   - Depends on `_ui.color` for colored output.
+# ------------------------------------------------------------------------------
+
+
+# Initialization & Autoloads
+# ───────────────────────────────────────────────────────────────────────
+## Load essential functions from the $fpath so they are available immediately.
+
+# Load the completion system (but don't init it yet, that happens in options.zsh)
+autoload -Uz compinit
+
+# Load color definitions (UI helpers)
+autoload -Uz _ui.color && _ui.color
+
+# Add custom binaries to PATH
+export PATH="$PATH:$ZSH_CONFIG_ROOT/bin"
+
+## Check for minimal mode
+[[ "${ENABLE_MINIMAL_MODE:l}" == "yes" ]] && return
+
+# Load the 'Defer' utility if available (Lazy Loading)
+# Note: Ensure a file named 'zsh-defer' or 'Defer' exists in your $fpath
+autoload -Uz Defer && Defer
+
+# Load custom modules based on config flags
+if [[ "${ENABLE_MULTI_NEOVIM:l}" == "yes" ]]; then
+    autoload -Uz MultiVim && MultiVim
+fi
+
+if [[ "${ENABLE_THEME_SH_INTEGRATION:l}" == "yes" ]]; then
+    autoload -Uz Themer && Themer
+fi
+
+if [[ "${LOAD_CUSTOM_ALIASES:l}" == "yes" ]]; then
+    autoload -Uz PrettyAlias
+fi
+
+
+
+# Plugin Manager (Plug)
+# ───────────────────────────────────────────────────────────────────────
+## A lightweight function to clone and source Zsh plugins from GitHub.
+
+
+
+# ------------------------------------------------------------------------------
+# Function: plug
+# Description:
+#   A lightweight plugin manager. It clones Git repositories to a local storage
+#   directory and sources their initialization scripts.
+#
+#   It supports "lazy loading" via the 'defer' keyword. If 'defer' is passed,
+#   the *next* plugin in the list will be loaded only when the shell is idle.
+#
+# Arguments:
+#   $@ (list) : A list of strings representing "user/repo" or the "defer" keyword.
+#               If no arguments are passed, it uses the global $ZPLUGINS array.
+#
+# Usage:
+#   plug "zsh-users/zsh-syntax-highlighting" "defer" "zsh-users/zsh-autosuggestions"
+# ------------------------------------------------------------------------------
+function plug() {
+    # 1. Safety & Options
+    # Ensure globs behave predictably inside this function
+    emulate -L zsh
+    setopt localoptions extendedglob nullglob
+
+    # 2. Environment Preparation
+    # ZPLUGIN_STORAGE_DIR is defined in env.zsh
+    [[ -d "$ZPLUGIN_STORAGE_DIR" ]] || mkdir -p "$ZPLUGIN_STORAGE_DIR"
+
+    # 3. Input Resolution
+    # Use arguments if provided, otherwise fallback to global ZPLUGINS array
+    local -a plugin_targets
+    if (( $# > 0 )); then
+        plugin_targets=("$@")
+    else
+        plugin_targets=("${ZPLUGINS[@]}")
+    fi
+
+    # 4. Processing Loop
+    local repo_identifier plugin_name local_path entry_point
+    local enable_deferral=0
+
+    for repo_identifier in "${plugin_targets[@]}"; do
+
+        # ── control flags ──────────────────────────────────────────────────────
+        # Check for 'defer' keyword to lazy-load the NEXT plugin
+        if [[ "$repo_identifier" == "defer" ]]; then
+            enable_deferral=1
+            continue
+        fi
+
+        # ── installation logic ─────────────────────────────────────────────────
+        # Extract name: "user/repo" -> "repo"
+        plugin_name="${repo_identifier:t}"
+        local_path="$ZPLUGIN_STORAGE_DIR/$plugin_name"
+
+        if [[ ! -d "$local_path" ]]; then
+            print "${COLOR[BLUE]}:: Installing plugin:${COLOR[RESET]} $plugin_name..."
+            git clone --depth 1 --quiet "https://github.com/${repo_identifier}.git" "$local_path"
+        fi
+
+        # ── entry point resolution ─────────────────────────────────────────────
+        # Heuristic search for the init file.
+        # (N) = nullglob: Return nothing if no match
+        # (.) = plain files only: Ignore directories
+
+        local -a candidates=(
+            # 1. Exact match (Best) -> plugin-name.plugin.zsh or plugin-name.zsh
+            $local_path/${plugin_name}.(plugin.zsh|zsh|sh|zsh-theme)(N.)
+
+            # 2. Generic match (Fallback) -> *.plugin.zsh or init.zsh
+            $local_path/*.(plugin.zsh|zsh|sh|zsh-theme)(N.)
+        )
+
+        # Pick the first valid file found
+        entry_point="${candidates[1]}"
+
+        # ── execution ──────────────────────────────────────────────────────────
+        if [[ -n "$entry_point" ]]; then
+            if (( enable_deferral )); then
+                # Lazy Load
+                # Ensure we call the function correctly (lowercase 'zsh-defer')
+                if (( $+functions[zsh-defer] )); then
+                    zsh-defer source "$entry_point"
+                else
+                    # Fallback if zsh-defer isn't loaded
+                    source "$entry_point"
+                fi
+            else
+                # Eager Load
+                source "$entry_point"
+            fi
+        else
+            print "${COLOR[RED]}[ERROR]${COLOR[RESET]} Could not find init file for: $plugin_name"
+        fi
+
+        # Reset flag for next iteration
+        enable_deferral=0
+    done
+}
+
+
+# Eval Cache (Startup Optimization)
+# ───────────────────────────────────────────────────────────────────────
+## Caches the output of slow initialization commands (like 'starship init zsh').
+## Saves ~100-300ms on startup.
+
+# Ensure Cache Directory Exists
+CACHE_DIR="${ZSH_CACHE:-$HOME/.cache/zsh-cache}/eval-cache"
+[[ -d "$CACHE_DIR" ]] || mkdir -p "$CACHE_DIR"
+
+# ------------------------------------------------------------------------------
+# Function: _eval_cache
+# Description:
+#   Executes a command and caches its output to a file. On subsequent runs,
+#   it sources the cache file instead of running the slow command, unless
+#   the binary has been updated (modification time check).
+#
+# Arguments:
+#   $1 (name) : The command name (e.g., "starship"). Used for the cache filename.
+#   $2 (cmd)  : The full initialization command to run (e.g., "starship init zsh").
+#   $3 (mode) : "immediate" to source right away, or "defer" to lazy load.
+#
+# Usage:
+#   _eval_cache "zoxide" "zoxide init zsh" "defer"
+# ------------------------------------------------------------------------------
+_eval_cache() {
+    local name="$1"
+    local cmd="$2"
+    local mode="${3:-defer}"
+
+    local cache_file="$CACHE_DIR/${name}.zsh"
+    # Access the 'commands' hash directly to check for binary existence
+    local binary="$commands[$name]"
+
+    # 1. Validation: If binary is missing, stop immediately.
+    if [[ -z "$binary" ]]; then
+        return
+    fi
+
+    # 2. Invalidation Logic:
+    #    Rebuild if: Cache missing OR Binary is newer than Cache file
+    if [[ ! -e "$cache_file" || "$binary" -nt "$cache_file" ]]; then
+
+        # Atomic Write Strategy:
+        # Write to a temp file first, then move it. This prevents race conditions
+        # if you open multiple terminal tabs simultaneously.
+        local tmp_file="${cache_file}.$$"
+
+        # Run command. Only save if successful.
+        if eval "$cmd" > "$tmp_file"; then
+            mv -f "$tmp_file" "$cache_file"
+
+            # Background compilation (async) to speed up future loads
+            zcompile "$cache_file" &!
+        else
+            rm -f "$tmp_file"
+            return 1
+        fi
+    fi
+
+    # 3. Loading Logic
+    if [[ "$mode" == "immediate" ]]; then
+        source "$cache_file"
+    elif (( $+functions[zsh-defer] )); then
+        zsh-defer source "$cache_file"
+    else
+        source "$cache_file"
+    fi
+}
+
+
+# Path Construction
+# ───────────────────────────────────────────────────────────────────────
+## We construct the system $PATH and $FPATH here.
+
+#  Dynamic Path Injection
+#  Iterate through USER_PATH_ENTRIES defined in env.zsh
+# Ensure PATH does not contain duplicates (Built-in Zsh feature)
+typeset -U path
+
+# ── Path Builder Engine ───────────────────────────────────────────────
+# Usage: _build_path "dir1" "dir2" ...
+function _build_path() {
+    # 1. Guard: Stop if no arguments passed
+    (( $# )) || return
+
+    local -a _raw_paths=("${@}")
+    local -a _expanded_paths
+    local entry
+
+    # 2. Fast Expansion: Prepend $HOME to relative paths
+    for entry in "${_raw_paths[@]}"; do
+        # If entry does not start with /, prepend $HOME/
+        [[ "$entry" != /* ]] && entry="$HOME/$entry"
+        _expanded_paths+=("$entry")
+    done
+
+    # 3. Bulk Existence Check & Injection (The "Magic")
+    #    $^var  -> "Distribute" the modifier to every element in the array
+    #    (N-/)  -> N: Null glob (remove if not found)
+    #              -: Follow symlinks (ensure the target exists)
+    #              /: Only match directories
+    path+=(${^_expanded_paths}(N-/))
+}
+
+# ── Execution ─────────────────────────────────────────────────────────
+
+# 1. Immediate Injection (Critical System Paths)
+_build_path "${USER_PATH_ENTRIES[@]}"
+
+# 2. Deferred Injection (Lazy Load)
+#    Only runs if there are actually deferred entries to process
+if (( ${#DEFERRED_PATH_ENTRIES} )); then
+    if (( $+functions[zsh-defer] )); then
+        zsh-defer -t 0.5 _build_path "${DEFERRED_PATH_ENTRIES[@]}"
+    else
+        _build_path "${DEFERRED_PATH_ENTRIES[@]}"
+    fi
+fi
+
+
+# File Helpers
+# ───────────────────────────────────────────────────────────────────────
+
+# ------------------------------------------------------------------------------
+# Function: _safe_edit
+# Description:
+#   Wraps the default editor to provide safety checks. It ensures the target
+#   file exists before opening and handles sudo elevation if requested.
+#   It specifically uses `visudo` if the target is /etc/sudoers.
+#
+# Arguments:
+#   $1 (file)          : The file path to edit.
+#   $2 (sudo_required) : "true" to run with sudo, empty otherwise.
+# ------------------------------------------------------------------------------
+function _safe_edit() {
+    local file="$1"
+    local sudo_required="$2"
+
+    if [[ ! -f "$file" ]]; then
+        print "${COLOR[RED]:-Error:} File not found at ${COLOR[YELLOW]:-}$file${COLOR[RESET]:-}"
+        return 1
+    fi
+
+    if [[ "$sudo_required" == "true" ]]; then
+        if [[ "$file" == "/etc/sudoers" ]]; then
+            print "Using 'visudo' for safety..."
+            sudo visudo
+        else
+            sudo "$EDITOR" "$file"
+        fi
+    else
+        "$EDITOR" "$file"
+    fi
+}
+
+
+# Final Integrations
+# ───────────────────────────────────────────────────────────────────────
+
+# User Overrides / Offline Config
+# ───────────────────────────────────────────────────────────────────────
+## Creates a placeholder file for local, non-git-tracked overrides.
+## We run this asynchronously because it's not critical to the shell's operation initially.
+
+(
+    # Define the location (Use ZDOTDIR if available, else HOME)
+    typeset override_file="$HOME/User-Overrides.zsh"
+
+    # Check if the file exists and is non-empty. If not, create it with template content.
+    if [[ ! -s "$override_file" ]]; then
+
+    # Write directly using Zsh's built-in print. No 'cat', no heredocs.
+    print -r -- '# ------------------------------------------------------------------------------
+# USER OVERRIDES & SECRETS
+# ------------------------------------------------------------------------------
+# This file is for local configuration that should NOT be tracked by Git.
+# [NOTE] This file is auto-created if missing. and will be auto-loaded.
+#
+# USAGE:
+#   1. Add this filename to your .gitignore (if syncing dotfiles).
+#   2. Define API keys, work-specific aliases, or hardware-specific overrides here.
+#   3. Or just remove comment from any example below and modify it.
+#
+# vim: ft=zsh
+# ------------------------------------------------------------------------------
+
+# ── 1. Local Aliases ──────────────────────────────────────────────────
+# alias ssh-work="ssh user@192.168.1.xx"
+# alias myip="curl -s http://ipecho.net/plain; print"
+
+# ── 2. Path Additions ─────────────────────────────────────────────────
+# path+=("$HOME/my-custom-bin")
+
+# ── 3. Function Overrides ─────────────────────────────────────────────
+# function work_vpn() {
+#     sudo tailscale up --exit-node=work-pc
+# }' > "$override_file"
+
+        print "${COLOR[GREEN]}[INFO] Created local override file at: ${COLOR[YELLOW]}${override_file}${COLOR[RESET]}"
+    fi
+) &!
+
+# Wallpaper Sync
+# Lazy load the wallpaper randomizer if the binary exists.
+if [[ "${ENABLE_WALLPAPER_SYNC:l}" == "yes" ]]; then
+    zsh-defer eval 'RandomWall >/dev/null 2>&1 &!'
+fi
+
+

@@ -1,0 +1,29 @@
+[manager]
+keymap = [
+  # navigation
+  { on = ["l"],         run = "plugin --sync smart-enter",    desc = "Enter or open" },
+  { on = ["h"],         run = "leave",                        desc = "Leave dir"     },
+
+  # tab management
+  { on = ["t"],         run = "tab_create --current",         desc = "New tab"       },
+  { on = ["1"],         run = "tab_switch 0"                              },
+  { on = ["2"],         run = "tab_switch 1"                              },
+  { on = ["3"],         run = "tab_switch 2"                              },
+
+  # bookmarks / jumps
+  { on = ["g", "h"],    run = "cd ~",                         desc = "Home"          },
+  { on = ["g", "d"],    run = "cd ~/Downloads",               desc = "Downloads"     },
+  { on = ["g", "p"],    run = "cd ~/Projects",                desc = "Projects"      },
+  { on = ["g", "c"],    run = "cd ~/.config",                 desc = "Config"        },
+  { on = ["g", "D"],    run = "cd ~/Documents",               desc = "Documents"     },
+
+  # shell integration
+  { on = ["!"],         run = "shell '$SHELL' --block",        desc = "Open shell"   },
+  { on = ["e"],         run = "open --interactive",            desc = "Open with..." },
+
+  # fzf jump (requires zoxide plugin)
+  { on = ["z"],         run = "plugin zoxide",                 desc = "Zoxide jump"  },
+
+  # archive
+  { on = ["E"],         run = "plugin compress",               desc = "Compress"     },
+]

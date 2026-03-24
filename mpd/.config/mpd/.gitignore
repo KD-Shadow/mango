@@ -1,0 +1,7 @@
+log/
+mpd.log
+mpd.db
+mpdstate
+*.bak
+socket
+mpdstate

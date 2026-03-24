@@ -1,0 +1,19 @@
+{
+  "dankKDEConnect": {
+    "enabled": false
+  },
+  "calculator": {
+    "enabled": true,
+    "trigger": "=",
+    "noTrigger": false
+  },
+  "wallpaperCarousel": {
+    "enabled": true
+  },
+  "dankDesktopWeather": {
+    "enabled": false
+  },
+  "cavaVisualizer": {
+    "enabled": false
+  }
+}

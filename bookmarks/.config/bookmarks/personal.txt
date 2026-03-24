@@ -1,0 +1,13 @@
+nvchad::https://nvchad.com/docs/config/walkthrough
+rustbook::https://doc.rust-lang.org/book/
+deepseek::https://chat.deepseek.com
+syncthing::http://localhost:8384
+hackernews::https://thehackernews.com/
+nextcloud::https://ivo.lv.tab.digital/apps/dashboard/
+colors::https://www.iamsajid.com/
+typing::https://www.edclub.com/sportal/program-3.game
+pass::https://pass.proton.me/u/2/share/1a6161pNJpAb3V2GcqycQi5Ta-C-HBGP0TztiYrU_A16lJNPlLHM1gPzUVnK9dacN4d0f342wGdxHiX7Uan2DA==/item/bRdr5PDNT95pXSAyLDhtmwOd33OAyxHYDJh-LK3Truv2uY5sRE4bCoWwRPJI30N9-RWJBtg7Px_aiQOLDq4dGw==?filters=eyJzZWFyY2giOiIiLCJzb3J0IjoicmVjZW50IiwidHlwZSI6IioiLCJzZWxlY3RlZFNoYXJlSWQiOm51bGx9
+mail::https://mail.proton.me/u/1/inbox
+drive::https://drive.proton.me/u/0/
+linuxbook::https://thelinuxbook.com/
+apidev::https://youtu.be/0sOvCWFmrtA

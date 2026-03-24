@@ -1,0 +1,49 @@
+#!/usr/bin/env zsh
+
+# ---------------- CONFIGURATION ---------------- #
+local SESSION="DSA"
+local WORK_DIR="$HOME/Developer/DSA"
+local MAIN_FILE="practice.cpp"
+local INPUT_FILE="input.txt"
+local OUTPUT_FILE="output.txt"
+
+# -------------------- CHECKS -------------------- #
+
+# Guard: Ensure the workspace directory exists
+if [[ ! -d "$WORK_DIR" ]]; then
+    print -u2 "Error: Directory not found: $WORK_DIR"
+    print -u2 "Please create it before running this script."
+    exit 1
+fi
+
+# -------------------- LOGIC -------------------- #
+
+# 1. Check if session exists. If yes, attach and exit.
+if tmux has-session -t "$SESSION" 2>/dev/null; then
+    tmux attach-session -t "$SESSION"
+    exit 0
+fi
+
+# 2. Create new session (detached), set directory, name window
+# -c sets the working directory for the window automatically
+tmux new-session -d -s "$SESSION" -c "$WORK_DIR" -n "Practice"
+
+# 3. Pane 0 (Left): The Coding Area
+tmux send-keys -t "${SESSION}:0.0" "nvim $MAIN_FILE" C-m
+
+# 4. Pane 1 (Top Right): Input File
+# -h: Horizontal split | -p 25: Take 25% width
+tmux split-window -h -p 25 -c "$WORK_DIR" 
+tmux send-keys -t "${SESSION}:0.1" "nvim $INPUT_FILE" C-m
+
+# 5. Pane 2 (Bottom Right): Output File
+# -v: Vertical split (splits the current active pane, which is Pane 1)
+tmux split-window -v -c "$WORK_DIR"
+tmux send-keys -t "${SESSION}:0.2" "nvim +Realtime $OUTPUT_FILE" C-m
+
+# 6. Final Adjustments
+# Focus cursor back on the main code pane (Left)
+tmux select-pane -t "${SESSION}:0.0"
+
+# 7. Attach to session
+tmux attach-session -t "$SESSION"

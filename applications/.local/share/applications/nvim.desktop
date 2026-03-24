@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Neovim
+Comment=Edit text and code files
+Exec=ghostty -e sh -c 'nvim "$1"' sh %f
+Icon=neovim
+Terminal=false
+Type=Application
+Categories=Utility;TextEditor;Development;
+MimeType=text/plain;application/x-shellscript;application/javascript;application/json;application/xml;application/x-python;application/x-c++src;application/x-csrc;application/x-c++hdr;application/x-haskell;application/x-ruby;application/x-perl;application/x-java;application/x-php;application/x-go;application/x-rustsrc;application/x-yaml;application/x-markdown;text/x-log;text/x-config;text/x-shellscript;text/x-cmake;text/x-makefile;

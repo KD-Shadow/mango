@@ -1,0 +1,136 @@
+#!/usr/bin/env zsh
+#    ░█░█░▀█▀░░░░█░█░█▀▀░█░░░█▀▀░█▀█░█▄█░█▀▀
+#    ░█░█░░█░░░░░█▄█░█▀▀░█░░░█░░░█░█░█░█░█▀▀
+#    ░▀▀▀░▀▀▀░▀░░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀
+
+# ------------------------------------------------------------------------------
+# File Purpose
+#   This script displays a one-time "Welcome / Onboarding" guide when the
+#   shell is initialized for the very first time.
+#
+# Problems Solved
+#   - Orients new users with key features (Benchmarks, Minimal Mode).
+#   - Explains the configuration philosophy (Managed vs. User Overrides).
+#   - Provides immediate links to documentation/repos.
+#   - Cleans up legacy history/dump files to ensure a fresh start.
+#
+# Features / Responsibilities
+#   - ASCII Art Header.
+#   - Feature highlights (Performance, Visuals).
+#   - Self-Destruction: Automatically removes itself from .zshrc after running.
+#
+# Usage Notes
+#   - This runs automatically.
+#   - To test manually: source _welcome.ui
+# ------------------------------------------------------------------------------
+
+
+# Wrap in an anonymous function to prevent variable leakage into the shell.
+# This ensures 'COLOR[RESET]', 'COLOR[CYAN]', etc., don't persist after this script runs.
+() {
+
+    # Configuration & Styling
+    # ───────────────────────────────────────────────────────────────────────
+    ## Define local style constants for consistent UI theming.
+    ## We use 'typeset -r' to make them read-only constants.
+
+
+    # ── cleanup operations ─────────────────────────────────────────────────
+    # Ensure a clean slate by removing legacy history or dump files.
+
+    # ---- NOTE: History removal sometimes fails due to file locks.
+    if [[ -f "$HOME/.zsh_history" ]]; then
+        zsh-defer command rm -f "$HOME/.zsh_history" &> /dev/null
+    fi
+
+    if [[ -f "$HOME/.zcompdump" ]]; then
+        zsh-defer command rm -f "$HOME/.zcompdump" &> /dev/null
+    fi
+
+
+    # The Message UI
+    # ───────────────────────────────────────────────────────────────────────
+    ## Renders the actual text to the screen.
+
+    clear
+
+    # 1. Header Box
+    print "${COLOR[DIM]}   ╭──────────────────────────────────────────────────────────────╮${COLOR[RESET]}"
+    print "${COLOR[DIM]}   │${COLOR[RESET]}                ${COLOR[CYAN]}👋 HELLO, WELCOME TO ZSH-CONF${COLOR[RESET]}                 ${COLOR[DIM]}│${COLOR[RESET]}"
+    print "${COLOR[DIM]}   ╰──────────────────────────────────────────────────────────────╯${COLOR[RESET]}"
+
+    # 2. Introduction
+    print "   Maybe it's your first time using a custom Zsh setup or maybe not."
+    print "   Here are some tips to help you get the most out of your terminal.\n"
+    print "   ${COLOR[DIM]}🔗 Repo:${COLOR[RESET]} https://github.com/adityastomar67/zsh-conf\n"
+
+    # 3. Philosophy & Features
+    print "   ${COLOR[MAGENTA]}:: PHILOSOPHY & FEATURES${COLOR[RESET]}"
+    print "   I tried to make this shell environment ${COLOR[BOLD]}MINIMALIST${COLOR[RESET]} yet powerful."
+    print "   It is designed to be fast, beautiful, and efficient.\n"
+
+    # · Benchmarking
+    print "   ${COLOR[DIM]}•${COLOR[RESET]} ${COLOR[BOLD]}Startup Benchmarking:${COLOR[RESET]}"
+    print "     Automatically times your shell load. Set ${COLOR[YELLOW]}ZSH_BENCHMARK=\"Yes\"${COLOR[RESET]} in ${COLOR[UNDERLINE]}\$ZDOTDIR/user.conf${COLOR[RESET]} to see the report.\n"
+
+    # · Minimalist Mode
+    print "   ${COLOR[DIM]}•${COLOR[RESET]} ${COLOR[BOLD]}Minimalist Mode:${COLOR[RESET]}"
+    print "     Need raw speed? Toggle the lightweight version by setting ${COLOR[YELLOW]}MINIMALIST=\"Yes\"${COLOR[RESET]} in ${COLOR[UNDERLINE]}\$ZDOTDIR/user.conf${COLOR[RESET]}.\n"
+
+    # · Visuals
+    print "   ${COLOR[DIM]}•${COLOR[RESET]} ${COLOR[BOLD]}Visuals:${COLOR[RESET]}"
+    print "     Enjoy random pixel art or quotes on start. Set ${COLOR[YELLOW]}FANCY_TERM=\"Yes\"${COLOR[RESET]} in ${COLOR[UNDERLINE]}\$ZDOTDIR/user.conf${COLOR[RESET]}."
+    print "     ${COLOR[CYAN]}[NOTE]${COLOR[RESET]} (Requires '${COLOR[BLUE]}motivate${COLOR[RESET]}' installed for Quotes).\n"
+
+    # 4. Configuration Guide
+    print "   ${COLOR[MAGENTA]}:: CONFIGURATION${COLOR[RESET]}"
+    print "   This configuration is managed, meaning the core files may update."
+    print "   To keep your settings safe, please follow this rule:\n"
+
+    # · Warning / Do Not Edit
+    print "   ${COLOR[RED]}⚠  DO NOT EDIT:${COLOR[RESET]} Any file at ${COLOR[DIM]}${COLOR[UNDERLINE]}\$ZDOTDIR/zsh/${COLOR[RESET]} directly."
+
+    # · Do Edit
+    print "   ${COLOR[CYAN]}✓  DO EDIT:${COLOR[RESET]}     The ${COLOR[BOLD]}'USER OVERRIDES'${COLOR[RESET]} can go in your ${COLOR[DIM]}${COLOR[UNDERLINE]}~/User-Overrides.zsh${COLOR[RESET]} file.\n                   All pre-set options are in ${COLOR[DIM]}${COLOR[UNDERLINE]}\$ZDOTDIR/user.conf${COLOR[RESET]}. Access the options using ${COLOR[BLUE]}${COLOR[BOLD]}zsettings${COLOR[RESET]} command.\n"
+
+    # · Alias Tip
+    print "   ${COLOR[DIM]}${COLOR[UNDERLINE]}~/User-Overrides.zsh${COLOR[RESET]} is where you should place your custom aliases, exports, and functions\n   (e.g. ${COLOR[YELLOW]}alias myip='curl ifconfig.me'${COLOR[RESET]}).\n"
+    print "   You have to enable it in ${COLOR[UNDERLINE]}\$ZDOTDIR/user.conf${COLOR[RESET]} by setting ${COLOR[YELLOW]}LOAD_PRIVATE_CONFIG=\"Yes\"${COLOR[RESET]}.\n   Also, this file is not maintained by GIT.\n"
+
+    # · Updates
+    print "   ${COLOR[DIM]}•${COLOR[RESET]} ${COLOR[BOLD]}Updates:${COLOR[RESET]}"
+    print "     Keep this config fresh easily. Just run ${COLOR[YELLOW]}dotup -z${COLOR[RESET]} in the terminal. It handles git pulls and resets automatically."
+    print "     Also, the suggested font in the terminal is: ${COLOR[DIM]}${COLOR[MAGENTA]}JetBrains Mono Nerd Font${COLOR[RESET]}.\n"
+
+    # 5. Footer & Help
+    print "   ${COLOR[DIM]}──────────────────────────────────────────────────────────────────────────────────────────────────────────────────${COLOR[RESET]}\n"
+    print "   ${COLOR[BOLD]} NEED HELP?${COLOR[RESET]}"
+    print "   If you find a bug or have a suggestion, open an issue at the repo @${COLOR[DIM]}adityastomar67/zsh-conf${COLOR[RESET]}\n"
+
+    print "   ${COLOR[DIM]}> The terminal can be intimidating. ${COLOR[RESET]}"
+    print "   ${COLOR[DIM]}> But once you master Zsh, you never go back to Bash. ${COLOR[RESET]}\n"
+
+    # 6. Exit Interaction
+    print -n "   ${COLOR[CYAN]}Press [ENTER] to start hacking...${COLOR[RESET]}"
+    read -k1 -s
+
+
+    # Self-Destruction Sequence
+    # ───────────────────────────────────────────────────────────────────────
+    ## This block removes the source line from .zshrc so this welcome
+    ## screen never appears again.
+
+    # Detect OS for correct `sed` syntax (macOS requires an empty string for backup extension)
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS / BSD Sed
+        sed -i '' '\|source "\$ZSH_CONFIG_ROOT/lib/_ui\.welcome"|d' "$ZDOTDIR/.zshrc"
+
+    else
+        # GNU / Linux Sed
+        sed -i '\|source "\$ZSH_CONFIG_ROOT/lib/_ui\.welcome"|d' "$ZDOTDIR/.zshrc"
+    fi
+
+    # Refresh the shell to apply the clean state
+    clear && exec zsh
+
+} # End of anonymous function

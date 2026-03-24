@@ -1,0 +1,92 @@
+" -----------------------------------------------------------------------------
+" Zathura settings
+" -----------------------------------------------------------------------------
+
+" Colors
+set default-bg              "rgba(12, 26, 79, 1)"
+set default-fg              "#8b97d2"
+
+set statusbar-bg            "#0c1a4f"
+set statusbar-fg            "#8b97d2"
+
+set inputbar-bg             "#0c1a4f"
+set inputbar-fg             "#8b97d2"
+
+set notification-error-bg   "#3b0001"
+set notification-error-fg   "#ff6a5d"
+
+set notification-warning-bg "#424e84"
+set notification-warning-fg "#7b0007"
+
+set highlight-color         "#424e84"
+set highlight-active-color  "#2a366b"
+
+set completion-highlight-fg "#0c1a4f"
+set completion-highlight-bg #8b97d2""
+
+set completion-bg           "#0c1a4f"
+set completion-fg           "#8b97d2"
+
+set notification-bg         "#0c1a4f"
+set notification-fg         "#8b97d2"
+
+set recolor                 "true"
+set recolor-lightcolor      "rgba(12, 26, 79, 1)"
+set recolor-darkcolor       "#8b97d2"
+set recolor-reverse-video   "true"
+set recolor-keephue         "true"
+
+" Clipboard
+set selection-clipboard clipboard
+
+" Search
+set incremental-search true
+set search-hadjust true
+
+" Autoadjust
+set adjust-open width
+
+" Typography
+set font "FiraCode Nerd Font 12"
+
+" -----------------------------------------------------------------------------
+" Zathura mappings
+" -----------------------------------------------------------------------------
+" remove status bar
+set guioptions none
+" Zoom in/out
+map [normal]     z zoom in
+map [normal]     Z zoom out
+map [fullscreen] z zoom in
+map [fullscreen] Z zoom out
+
+" Toggle mode
+map [normal]     D toggle_page_mode
+map [fullscreen] D toggle_page_mode
+
+" Scroll
+map [normal]     u scroll half-up
+map [normal]     d scroll half-down
+map [fullscreen] u scroll half-up
+map [fullscreen] d scroll half-down
+
+" Fullscreen
+map [normal]     f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
+
+" Reload
+map [normal]     <C-r> reload
+map [fullscreen] <C-r> reload
+
+" Status bar
+map [normal]     b toggle_statusbar
+map [fullscreen] b toggle_statusbar
+
+" Set width as in mupdf
+map [normal]     H adjust_window best-fit
+map [normal]     W adjust_window width
+map [fullscreen] H adjust_window best-fit
+map [fullscreen] W adjust_window width
+
+map [normal]     i set recolor
+map [fullscreen] i set recolor

@@ -1,0 +1,165 @@
+#!/usr/bin/env zsh
+
+#    ░█░█░▀█▀░█▀▀░▀█▀░░░█▀▀░▀█▀░█▀█░▀█▀░█▀▀
+#    ░█▀█░░█░░▀▀█░░█░░░░▀▀█░░█░░█▀█░░█░░▀▀█
+#    ░▀░▀░▀▀▀░▀▀▀░░▀░░▀░▀▀▀░░▀░░▀░▀░░▀░░▀▀▀
+
+# ------------------------------------------------------------------------------
+# File Purpose
+#   Analyzes the shell history file to provide a visual breakdown of the user's
+#   most frequently used commands.
+#
+# Problems Solved
+#   - Aggregates raw history data into meaningful usage patterns.
+#   - Normalizes commands (e.g., stripping 'sudo' or 'time' prefixes and paths).
+#   - Filters out high-frequency "noise" commands (ls, cd, etc.) to highlight
+#     actual tool usage.
+#   - Visualizes frequency through a color-coded TUI bar chart.
+#
+# Features / Responsibilities
+#   - Command Normalization: Extracts the core binary name from paths or wrappers.
+#   - Advanced AWK Pipeline: Handles data aggregation and bar width calculation.
+#   - Heatmap Bars: Colors bars based on the percentage of total command volume.
+#   - Dashboard UI: Displays total analyzed vs. unique command count.
+#
+# Usage Notes
+#   - Syntax: hist_stats
+#   - Relies on the 'fc' (fix command) builtin to read history.
+# ------------------------------------------------------------------------------
+
+
+# ── history analysis engine ──────────────────────────────────────────────────
+
+
+
+
+# ------------------------------------------------------------------------------
+# 1. Environment Sandbox
+
+# emulate -L zsh: Restricts configuration changes to this local scope.
+# pipefail: Ensures that if any command in the pipe fails, the whole chain fails.
+emulate -L zsh
+setopt localoptions no_xtrace pipefail
+
+
+# ------------------------------------------------------------------------------
+# 2. Filtering Configuration
+
+# Regex pattern to ignore utility commands that don't represent "work"
+local ignore_pattern="^(ls|cd|clear|exit|z|zsh|pwd|history|exec|source|sudo)$"
+
+print "${COLOR[BLUE]}::${COLOR[RESET]} Analyzing command history..."
+
+# ------------------------------------------------------------------------------
+# 3. Processing Pipeline
+
+# --- Complex Logic: Data Aggregation ---
+# 1. fc -l -n 1: Lists all history commands without line numbers.
+# 2. AWK Logic:
+#    - Skips prefixes like 'sudo' to find the actual command being run.
+#    - Strips directory paths (e.g., /usr/bin/git -> git).
+#    - Increments a hash map 'count[cmd]' for every valid entry.
+local output
+output=$(fc -l -n 1 | LC_ALL=C awk -v ignore="$ignore_pattern" '
+{
+    cmd = $1
+    # Extract true command if wrapped in common utility wrappers
+    if (cmd == "sudo" || cmd == "time") cmd = $2
+
+    # Handle absolute or relative paths: find basename
+    n = split(cmd, parts, "/")
+    if (n > 1) cmd = parts[n]
+
+    # Filter out noise, empty lines, or variable assignments
+    if (cmd == "" || cmd ~ /^(\.|\/)/ || cmd ~ /=/ || cmd ~ ignore) next
+
+    count[cmd]++
+    total++
+}
+END {
+    print "TOTAL_CMDS " total
+    for (c in count) print count[c] " " c
+}' | sort -nr)
+
+# ------------------------------------------------------------------------------
+# 4. Result Parsing
+
+# Extract calculated metrics from the AWK output stream
+local total_cmds=$(print "$output" | grep "TOTAL_CMDS" | cut -d' ' -f2)
+local data=$(print "$output" | grep -v "TOTAL_CMDS")
+local top_15=$(print "$data" | head -n 15)
+local unique_count=$(print "$data" | wc -l | tr -d ' ')
+
+# ------------------------------------------------------------------------------
+# 5. Dashboard Rendering
+
+print "${COLOR[BLUE]}╭──────────────────────────────────────────────────╮${COLOR[RESET]}"
+print "${COLOR[BLUE]}│             📊  COMMAND HISTORY STATS            │${COLOR[RESET]}"
+print "${COLOR[BLUE]}├──────────────────────────────────────────────────┤${COLOR[RESET]}"
+
+# 1. Define the exact text lengths and the middle gap (6 spaces)
+local text_analyzed="Analyzed: $total_cmds"
+local text_unique="Unique: $unique_count"
+local middle_gap="      "
+
+# 2. Calculate remaining space to distribute
+local visible_len=$(( ${#text_analyzed} + ${#middle_gap} + ${#text_unique} ))
+local remaining=$(( 50 - visible_len ))
+
+# 3. Split the remaining space evenly for perfect centering
+local left_pad=$(( remaining / 2 ))
+local right_pad=$(( remaining - left_pad )) # Handles odd numbers gracefully
+
+# 4. Generate the exact whitespace strings
+local space_left="" space_right=""
+(( left_pad > 0 )) && printf -v space_left "%*s" $left_pad ""
+(( right_pad > 0 )) && printf -v space_right "%*s" $right_pad ""
+
+# 5. Print the perfectly centered row
+print "${COLOR[BLUE]}│${COLOR[RESET]}${space_left}Analyzed: ${COLOR[WHITE]}${total_cmds}${COLOR[RESET]}${middle_gap}Unique: ${COLOR[WHITE]}${unique_count}${COLOR[RESET]}${space_right}${COLOR[BLUE]}│${COLOR[RESET]}"
+
+print "${COLOR[BLUE]}╰──────────────────────────────────────────────────╯${COLOR[RESET]}"
+
+# ------------------------------------------------------------------------------
+# 6. Bar Chart Rendering
+
+# --- Complex Logic: Heatmap Generation ---
+# We map the percentage of usage to a color scale and bar width.
+# 1. pct > 20% -> Red (Major Reliance)
+# 2. pct > 10% -> Orange
+# 3. pct > 5%  -> Yellow
+# 4. else      -> Green
+print "$top_15" | awk -v total="$total_cmds" '
+function get_color(pct) {
+    if (pct > 20) return "\033[38;5;196m"
+    if (pct > 10) return "\033[38;5;214m"
+    if (pct > 5)  return "\033[38;5;226m"
+    return "\033[38;5;46m"
+}
+{
+    count = $1
+    cmd = $2
+    percent = (total > 0) ? (count / total) * 100 : 0
+
+    # Scale the bar width (capped at 20 characters)
+    bar_width = int(percent / 1.5)
+    if (bar_width == 0 && percent > 0) bar_width = 1
+    if (bar_width > 20) bar_width = 20
+
+    # Build Unicode bar string
+    bar = ""
+    for (i=0; i<bar_width; i++) bar = bar "▇"
+
+    color = get_color(percent)
+    reset = "\033[0m"
+    grey  = "\033[38;5;240m"
+    white = "\033[1;37m"
+
+    # Final Dashboard Print (Using standard AWK printf)
+    printf "  %s%4d%s  %s%5.1f%%%s  %s%-12s%s  %s%s%s\n",
+        white, count, reset,
+        grey, percent, reset,
+        white, cmd, reset,
+        color, bar, reset
+}'
+print

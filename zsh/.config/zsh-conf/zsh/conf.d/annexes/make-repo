@@ -1,0 +1,158 @@
+#!/usr/bin/env zsh
+#    ░█▄█░█▀█░█░█░█▀▀░░░░░█▀▄░█▀▀░█▀█░█▀█
+#    ░█░█░█▀█░█▀▄░█▀▀░▄▄▄░█▀▄░█▀▀░█▀▀░█░█
+#    ░▀░▀░▀░▀░▀░▀░▀▀▀░░░░░▀░▀░▀▀▀░▀░░░▀▀▀
+
+# ------------------------------------------------------------------------------
+# File Purpose
+#   Automates the creation of a new Git repository with best-practice scaffolding.
+#
+# Problems Solved
+#   - Eliminates repetitive manual steps for repository initialization.
+#   - Ensures a robust, multi-language .gitignore is present from day one.
+#   - Simplifies the connection between local code and remote hosting (GitHub).
+#   - Prevents re-initializing existing repositories via safety checks.
+#
+# Features / Responsibilities
+#   - Git Initialization: Sets the initial branch to 'main' (modern standard).
+#   - Automatic Scaffolding: Generates a README.md and a comprehensive .gitignore.
+#   - Commit Automation: Stages all files and creates the "Initial Commit".
+#   - Remote Integration: Supports direct URL addition or interactive GitHub
+#     repository creation via the 'gh' CLI.
+#
+# Usage Notes
+#   - Syntax: mkrepo [remote_url]
+#   - If no URL is provided, it will offer to use GitHub CLI if installed.
+# ------------------------------------------------------------------------------
+
+
+# ── repository factory ───────────────────────────────────────────────────────
+
+
+
+
+# ------------------------------------------------------------------------------
+# 1. Environment Sandbox
+
+# emulate -L zsh: Ensures the function behaves predictably regardless of
+#                 the user's global shell options.
+# pipefail: Returns the exit status of the last command in the pipe to fail.
+emulate -L zsh
+setopt localoptions no_xtrace pipefail
+
+# Header Output
+print "\n${COLOR[BLUE]}::${COLOR[RESET]} ${COLOR[BOLD]}Initializing Project Repository${COLOR[RESET]}..."
+
+# ------------------------------------------------------------------------------
+# 2. Pre-Flight Safety Checks
+
+# !!! CRITICAL: Check for existing Git metadata
+# We abort if .git exists to prevent overwriting history or remote pointers.
+if [[ -d ".git" ]]; then
+    print "${COLOR[RED]}[ERROR]${COLOR[RESET]} This directory is already a git repository." >&2
+    return 1
+fi
+
+# ------------------------------------------------------------------------------
+# 3. Core Initialization
+
+# We force 'main' as the branch name to align with modern Git standards.
+git init --quiet --initial-branch=main
+print "   ${COLOR[GREEN]}✔${COLOR[RESET]} Git initialized (${COLOR[GREY]}branch: main${COLOR[RESET]})"
+
+# ------------------------------------------------------------------------------
+# 4. Scaffolding Logic
+
+# --- Complex Logic: File Generation ---
+# We only create files if they do not exist to avoid data loss.
+
+# A. README Generation
+# Uses the current directory name as the primary H1 title.
+if [[ ! -f "README.md" ]]; then
+    print "# $(basename "$PWD")" > README.md
+    print "   ${COLOR[GREEN]}✔${COLOR[RESET]} Created README.md"
+else
+    print "   ${COLOR[YELLOW]}⚠${COLOR[RESET]} README.md exists (skipped)"
+fi
+
+# B. Robust .gitignore
+# ---- NOTE: This handles Mac, Linux, Windows, VSCode, and major language runtimes.
+if [[ ! -f ".gitignore" ]]; then
+    cat <<EOF > .gitignore
+# OS Files
+.DS_Store
+Thumbs.db
+*.log
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Environments & Dependencies
+node_modules/
+dist/
+build/
+__pycache__/
+*.py[cod]
+.env
+venv/
+.venv/
+EOF
+    print "   ${COLOR[GREEN]}✔${COLOR[RESET]} Created robust .gitignore"
+else
+    print "   ${COLOR[YELLOW]}⚠${COLOR[RESET]} .gitignore exists (skipped)"
+fi
+
+# ------------------------------------------------------------------------------
+# 5. Staging & Initial Commit
+
+git add .
+git commit -m "Initial Commit" --quiet
+print "   ${COLOR[GREEN]}✔${COLOR[RESET]} Initial commit created"
+
+# ------------------------------------------------------------------------------
+# 6. Remote Integration
+
+local remote_url="$1"
+
+# --- Complex Logic: Decision Matrix for Remotes ---
+
+# Scenario A: Explicit URL provided by user
+if [[ -n "$remote_url" ]]; then
+    git remote add origin "$remote_url"
+    print "   ${COLOR[GREEN]}✔${COLOR[RESET]} Remote added: ${COLOR[GREY]}$remote_url${COLOR[RESET]}"
+
+    print "   ${COLOR[BLUE]}::${COLOR[RESET]} Pushing to origin..."
+    # -u (set-upstream) is used to track the local branch to the remote
+    if git push -u origin main --quiet; then
+        print "   ${COLOR[GREEN]}🚀 SUCCESS: Repository is live!${COLOR[RESET]}"
+    else
+        print "   ${COLOR[RED]}[ERROR]${COLOR[RESET]} Push failed. Check URL or Auth."
+    fi
+
+# Scenario B: Interactive GitHub Integration
+# If GitHub CLI ('gh') is found in the path, we offer a seamless cloud setup.
+elif (( $+commands[gh] )); then
+    print
+    print "${COLOR[BLUE]}::${COLOR[RESET]} No remote URL provided."
+    print "${COLOR[BLUE]}::${COLOR[RESET]} GitHub CLI detected. Create remote repo now? [y/N]"
+
+    local ans
+    read -k 1 ans
+    print # Newline
+
+    if [[ "$ans" == "y" || "$ans" == "Y" ]]; then
+        # 'gh repo create' handles API calls, remote assignment, and the first push.
+        gh repo create "$(basename "$PWD")" --source=. --public --push
+        print "\n   ${COLOR[GREEN]}🚀 SUCCESS: GitHub repo created and pushed!${COLOR[RESET]}"
+    else
+        print "   ${COLOR[GREY]}Skipping remote creation. Local repo ready.${COLOR[RESET]}"
+    fi
+
+# Scenario C: Local only fallback
+else
+    print "\n   ${COLOR[GREEN]}✔${COLOR[RESET]} Local repository ready."
+    print "   ${COLOR[GREY]}(Run 'git remote add origin <url>' later)${COLOR[RESET]}"
+fi
+print

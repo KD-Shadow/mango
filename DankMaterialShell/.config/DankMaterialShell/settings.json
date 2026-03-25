@@ -1,7 +1,7 @@
 {
   "currentThemeName": "dynamic",
   "currentThemeCategory": "dynamic",
-  "customThemeFile": "/home/sh4dow/.config/DankMaterialShell/themes/gruvboxMaterial/theme.json",
+  "customThemeFile": "/home/sh4dow/.config/DankMaterialShell/themes/nordicDark/theme.json",
   "registryThemeVariants": {
     "amoledBlack": {
       "dark": {
@@ -25,7 +25,7 @@
     "peaceAndQuiet": "mint",
     "oxocarbon": "blue"
   },
-  "matugenScheme": "scheme-tonal-spot",
+  "matugenScheme": "scheme-rainbow",
   "matugenContrast": -0.3,
   "runUserMatugenTemplates": true,
   "matugenTargetMonitor": "",
@@ -437,6 +437,9 @@
   "screenPreferences": {
     "dock": [
       "all"
+    ],
+    "wallpaper": [
+      "all"
     ]
   },
   "showOnLastDisplay": {
@@ -522,7 +525,7 @@
       "spacing": 0,
       "innerPadding": -4,
       "bottomGap": 0,
-      "transparency": 1,
+      "transparency": 0,
       "widgetTransparency": 1,
       "squareCorners": true,
       "noBackground": false,
@@ -530,7 +533,7 @@
       "maximizeWidgetText": false,
       "removeWidgetPadding": false,
       "widgetPadding": 6,
-      "gothCornersEnabled": true,
+      "gothCornersEnabled": false,
       "gothCornerRadiusOverride": false,
       "gothCornerRadiusValue": 30,
       "borderEnabled": false,

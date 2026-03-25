@@ -18,3 +18,11 @@ output_path = '/home/sh4dow/.config/zathura/zathurarc'
 input_path = '/home/sh4dow/.config/matugen/templates/cava.ini'
 output_path = '/home/sh4dow/.config/cava/themes/cava-colors'
 post_hook = 'pkill -USR1 cava'
+
+[templates.rmpc]
+input_path = '/home/sh4dow/.config/matugen/templates/rmpc.ron'
+output_path = '~/.config/rmpc/themes/matugen.ron'
+
+[templates.zed]
+input_path = '~/.config/matugen/templates/zed-colors.json'
+output_path = '~/.config/zed/themes/matugen.json'

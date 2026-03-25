@@ -5,7 +5,7 @@
     address: "/home/sh4dow/.config/mpd/socket",
     password: None,
     enable_config_hot_reload: true,
-    theme: "custom",
+    theme: Some("matugen"),
     cache_dir:"~/Music/Songs/",
     volume_step: 5,
     max_fps: 30,

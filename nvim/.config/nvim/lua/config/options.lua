@@ -16,7 +16,7 @@ if vim.g.neovide then
   vim.g.neovide_cursor_vfx_mode = "ripple" -- "", "railgun", "torpedo", "pixiedust", "sonicboom", "ripple", "wireframe"
 
   -- font (set this in options.lua too)
-  vim.o.guifont = "Maple Mono NF:h9"
+  vim.o.guifont = "JetBrainsMono Nerd Font Mono:h9"
 end
 
 vim.g.mapleader = " "

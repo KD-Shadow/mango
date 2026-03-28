@@ -1,0 +1,119 @@
+{
+  "calculator": {
+    "enabled": true,
+    "trigger": "="
+  },
+  "wallpaperCarousel": {
+    "enabled": true
+  },
+  "aiAssistant": {
+    "enabled": true,
+    "providers": {
+      "openai": {
+        "baseUrl": "https://api.openai.com",
+        "model": "gpt-5.2",
+        "apiKey": "",
+        "saveApiKey": false,
+        "apiKeyEnvVar": "",
+        "temperature": 0.7,
+        "maxTokens": 4096,
+        "timeout": 30
+      },
+      "anthropic": {
+        "baseUrl": "https://api.anthropic.com",
+        "model": "claude-sonnet-4-5",
+        "apiKey": "",
+        "saveApiKey": false,
+        "apiKeyEnvVar": "",
+        "temperature": 0.7,
+        "maxTokens": 4096,
+        "timeout": 30
+      },
+      "gemini": {
+        "baseUrl": "https://generativelanguage.googleapis.com",
+        "model": "gemini-3-flash-preview",
+        "apiKey": "",
+        "saveApiKey": false,
+        "apiKeyEnvVar": "",
+        "temperature": 0.7,
+        "maxTokens": 4096,
+        "timeout": 30
+      },
+      "custom": {
+        "baseUrl": "https://api.openai.com",
+        "model": "gpt-5.2",
+        "apiKey": "",
+        "saveApiKey": false,
+        "apiKeyEnvVar": "",
+        "temperature": 0.7,
+        "maxTokens": 4096,
+        "timeout": 30
+      }
+    },
+    "provider": "openai",
+    "baseUrl": "https://api.openai.com",
+    "model": "gpt-5.2",
+    "apiKey": "",
+    "saveApiKey": false,
+    "apiKeyEnvVar": "",
+    "temperature": 0.7,
+    "maxTokens": 4096,
+    "timeout": 30
+  },
+  "dankNotepadModule": {
+    "enabled": true,
+    "style": "catppuccin-mocha"
+  },
+  "sathiAi": {
+    "enabled": true
+  },
+  "dankPomodoroTimer": {
+    "enabled": true
+  },
+  "taskwarrior": {
+    "enabled": true
+  },
+  "mpvpaperWallpaper": {
+    "enabled": true,
+    "monitorPaths": {
+      "eDP-1": "/home/sh4dow/Downloads/stellar-gaze-moewalls-com.mp4"
+    },
+    "allMonitors": true,
+    "generateStaticWallpaper": false,
+    "allMonitorsPath": "/home/sh4dow/Downloads/stellar-gaze-moewalls-com.mp4",
+    "panscanValue": 0.87
+  },
+  "wallpaperBing": {
+    "enabled": true
+  },
+  "catWidget": {
+    "enabled": true,
+    "catSize": 24,
+    "idleThreshold": 0,
+    "updateInterval": 1,
+    "showCpuPercent": false
+  },
+  "dooitPlugin": {
+    "enabled": true
+  },
+  "dankCleaner": {
+    "enabled": true
+  },
+  "mediaPlayer": {
+    "enabled": true
+  },
+  "wallSearch": {
+    "enabled": true
+  },
+  "webSearch": {
+    "enabled": true,
+    "searchEngines": [],
+    "disabledEngines": []
+  },
+  "wallpaperDiscovery": {
+    "enabled": false,
+    "api_pexels": "az34ESaL2UlK95e5yWy9qrod7qZ7PZc0hqxCpKpIdp7cFKwz2oiQfLoe",
+    "downloadLocation": "~/Pictures/Wallpapers/NewWalls/",
+    "lastWallpaperUsed": "wallhaven.cc"
+  }
+}

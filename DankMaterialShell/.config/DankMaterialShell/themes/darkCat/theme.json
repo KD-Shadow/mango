@@ -1,0 +1,16 @@
+{
+  "name": "Dark Mocha",
+  "primary": "#cba6f7",
+  "primaryText": "#0d0e14",
+  "surface": "#181920",
+  "surfaceText": "#cdd6f4",
+  "surfaceVariant": "#1e1f2b",
+  "surfaceVariantText": "#bac2de",
+  "surfaceContainer": "#13141c",
+  "surfaceContainerHigh": "#22232f",
+  "surfaceContainerHighest": "#282936",
+  "background": "#0d0e14",
+  "backgroundText": "#cdd6f4",
+  "outline": "#363748",
+  "matugen_type": "scheme-tonal-spot"
+}

@@ -1,7 +1,7 @@
 {
-  "currentThemeName": "custom",
-  "currentThemeCategory": "registry",
-  "customThemeFile": "/home/sh4dow/.config/DankMaterialShell/themes/darkCat/theme.json",
+  "currentThemeName": "dynamic",
+  "currentThemeCategory": "dynamic",
+  "customThemeFile": "/home/sh4dow/.config/DankMaterialShell/themes/e-ink/theme.json",
   "registryThemeVariants": {
     "gruvboxMaterial": "hard",
     "everforest": "hard",
@@ -11,7 +11,8 @@
         "accent": "mauve"
       }
     },
-    "rosePine": "rosePine"
+    "rosePine": "rosePine",
+    "peaceAndQuiet": "lavender"
   },
   "matugenScheme": "scheme-monochrome",
   "matugenContrast": -0.4,
@@ -295,12 +296,12 @@
   "matugenTemplateQt5ct": true,
   "matugenTemplateQt6ct": true,
   "matugenTemplateFirefox": false,
-  "matugenTemplatePywalfox": true,
+  "matugenTemplatePywalfox": false,
   "matugenTemplateZenBrowser": false,
   "matugenTemplateVesktop": false,
   "matugenTemplateEquibop": false,
   "matugenTemplateGhostty": true,
-  "matugenTemplateKitty": true,
+  "matugenTemplateKitty": false,
   "matugenTemplateFoot": false,
   "matugenTemplateAlacritty": true,
   "matugenTemplateNeovim": true,
@@ -309,7 +310,7 @@
   "matugenTemplateKcolorscheme": false,
   "matugenTemplateVscode": false,
   "matugenTemplateEmacs": false,
-  "matugenTemplateZed": false,
+  "matugenTemplateZed": true,
   "matugenTemplateNeovimSettings": {
     "dark": {
       "baseTheme": "rxyhn",
@@ -320,6 +321,7 @@
       "harmony": 0.5
     }
   },
+  "matugenTemplateNeovimSetBackground": true,
   "showDock": false,
   "dockAutoHide": true,
   "dockSmartAutoHide": false,

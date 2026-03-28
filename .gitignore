@@ -1,1 +1,15 @@
-
+cava/.config/cava/themes/cava-colors
+ghostty/.config/ghostty/themes/dankcolors
+gtk-3.0/.config/gtk-3.0/dank-colors.css
+gtk-4.0/.config/gtk-4.0/dank-colors.css
+mango/.config/mango/dms/colors.conf
+nvim/.config/nvim/colors/dms.lua
+nvim/.config/nvim/lazy-lock.json
+qt5ct/.config/qt5ct/colors/matugen.conf
+qt6ct/.config/qt6ct/colors/matugen.conf
+rmpc/.config/rmpc/themes/matugen.ron
+rofi/.config/rofi/colors.rasi
+yazi/.config/yazi/theme.toml
+zathura/.config/zathura/zathurarc
+zed/.config/zed/settings.json
+zed/.config/zed/themes/matugen.json

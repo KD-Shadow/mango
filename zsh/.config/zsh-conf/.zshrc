@@ -149,4 +149,4 @@ fi
 
 add-zsh-hook -d chpwd _10k_chpwd
 
-export PATH=$PATH:/home/sh4dow/.spicetify
+export MPD_HOST=/home/sh4dow/.config/mpd/socket

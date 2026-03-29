@@ -1,0 +1,20 @@
+{
+  "name": "RoseyAmoled",
+  "primary": "#ff8cb3",
+  "primaryText": "#000000",
+  "primaryContainer": "#3d1a28",
+  "secondary": "#ffb3cc",
+  "surfaceTint": "#ff8cb3",
+  "surface": "#000000",
+  "surfaceText": "#ffe0eb",
+  "surfaceVariant": "#1a0f16",
+  "surfaceVariantText": "#ff8cb3",
+  "surfaceContainer": "#0f0a0d",
+  "surfaceContainerHigh": "#1a0f16",
+  "surfaceContainerHighest": "#261520",
+  "background": "#000000",
+  "backgroundText": "#ffe0eb",
+  "outline": "#5a3f4d",
+  "error": "#ff99b8",
+  "matugen_type": "scheme-vibrant"
+}

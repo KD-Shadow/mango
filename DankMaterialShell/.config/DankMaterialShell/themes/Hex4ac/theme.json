@@ -1,0 +1,20 @@
+{
+  "name": "Hexa4c",
+  "primary": "#9ad4a1",
+  "primaryText": "#003916",
+  "primaryContainer": "#1a3d1f",
+  "secondary": "#b7ccb6",
+  "surfaceTint": "#9ad4a1",
+  "surface": "#101510",
+  "surfaceText": "#dfe4dc",
+  "surfaceVariant": "#101510",
+  "surfaceVariantText": "#c1c9be",
+  "surfaceContainer": "#161b16",
+  "surfaceContainerHigh": "#1c221c",
+  "surfaceContainerHighest": "#222822",
+  "background": "#101510",
+  "backgroundText": "#dfe4dc",
+  "outline": "#8b9389",
+  "error": "#ffb4ab",
+  "matugen_type": "scheme-tonal-spot"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Lilac",
+  "primary": "#b58fff",
+  "primaryText": "#000000",
+  "primaryContainer": "#2a1a4a",
+  "secondary": "#c79aff",
+  "surfaceTint": "#b58fff",
+  "surface": "#000000",
+  "surfaceText": "#e8d8ff",
+  "surfaceVariant": "#110d1a",
+  "surfaceVariantText": "#b58fff",
+  "surfaceContainer": "#0a0810",
+  "surfaceContainerHigh": "#110d1a",
+  "surfaceContainerHighest": "#1a1428",
+  "background": "#000000",
+  "backgroundText": "#e8d8ff",
+  "outline": "#4c3a70",
+  "error": "#ff6f9b",
+  "matugen_type": "scheme-vibrant"
+}

@@ -1,7 +1,7 @@
 {
-  "currentThemeName": "dynamic",
-  "currentThemeCategory": "dynamic",
-  "customThemeFile": "/home/sh4dow/.config/DankMaterialShell/themes/e-ink/theme.json",
+  "currentThemeName": "custom",
+  "currentThemeCategory": "registry",
+  "customThemeFile": "/home/sh4dow/.config/DankMaterialShell/themes/Hex4ac/theme.json",
   "registryThemeVariants": {
     "gruvboxMaterial": "hard",
     "everforest": "hard",
@@ -474,9 +474,8 @@
           "enabled": true,
           "mediaSize": 0
         },
-        "clock",
         {
-          "id": "dankPomodoroTimer",
+          "id": "clock",
           "enabled": true
         },
         {

@@ -115,5 +115,9 @@
     "api_pexels": "az34ESaL2UlK95e5yWy9qrod7qZ7PZc0hqxCpKpIdp7cFKwz2oiQfLoe",
     "downloadLocation": "~/Pictures/Wallpapers/NewWalls/",
     "lastWallpaperUsed": "wallhaven.cc"
+  },
+  "musicLyrics": {
+    "enabled": true,
+    "cachingEnabled": false
   }
 }

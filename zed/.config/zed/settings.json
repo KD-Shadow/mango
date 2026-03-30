@@ -93,12 +93,12 @@
     "tab_size": 4,
     // "auto_indent": false,
     // "auto_indent_on_paste": false,
-    // "show_completions_on_input": false,
-    // "show_completion_documentation": false,
-    // "inline_code_actions": false,
+    "show_completions_on_input": true,
+    "show_completion_documentation": false,
+    "inline_code_actions": false,
     // "lsp_document_colors": "none",
-    // "hover_popover_enabled": false,
-    // "format_on_save": "off",
+    "hover_popover_enabled": false,
+    "format_on_save": "on",
     "autosave": {
         "after_delay": {
             "milliseconds": 1000,
@@ -125,10 +125,9 @@
         "right_padding": 0.15,
         "left_padding": 0.15,
     },
-    "show_completions_on_input": true,
     "languages": {
         "Python": {
-            "language_servers": ["basedpyright", "!ty", "!pylsp", "..."],
+            "language_servers": ["basedpyright", "ruff"],
             "formatter": {
                 "language_server": { "name": "ruff" },
             },

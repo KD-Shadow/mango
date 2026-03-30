@@ -119,5 +119,13 @@
   "musicLyrics": {
     "enabled": true,
     "cachingEnabled": false
+  },
+  "clipboardPlus": {
+    "enabled": false,
+    "backgroundOpacity": 15,
+    "panelOpacityPinned": 95,
+    "tabOrder": "clipboard,search,category,pinned,todo",
+    "tabOrderEnabled": "clipboard,search,category,pinned,todo",
+    "panelOpacityClipboard": 100
   }
 }

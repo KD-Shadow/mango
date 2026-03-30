@@ -4,7 +4,8 @@
     "trigger": "="
   },
   "wallpaperCarousel": {
-    "enabled": true
+    "enabled": true,
+    "wallpaperDirectory": "/home/sh4dow/Pictures/wallpapers"
   },
   "aiAssistant": {
     "enabled": true,

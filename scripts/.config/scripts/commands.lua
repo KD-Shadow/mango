@@ -2,17 +2,17 @@
 
 local commands = {
 	{ name = "file manager", exec = "yazi" },
-	{ name = "typing test", exec = "/home/sh4dow/go/bin/gotype" },
+	{ name = "typing test", exec = "/home/$USER/go/bin/gotype" },
 	{ name = "cava", exec = "cava" },
 	{ name = "tui music", exec = "rmpc" },
 	{ name = "yt downloader", exec = "xytz" },
-	{ name = "youtube", exec = "/home/sh4dow/.config/scripts/vid-cli" },
-	{ name = "anime", exec = "/home/sh4dow/.config/scripts/ani-cli" },
+	{ name = "youtube", exec = "/home/$USER/.config/scripts/vid-cli" },
+	{ name = "anime", exec = "/home/$USER/.config/scripts/ani-cli" },
 	{ name = "btop", exec = "btop" },
 }
 local terminal = "ghostty"
 
-local rofi_theme = "/home/sh4dow/.config/rofi/style_3.rasi"
+local rofi_theme = "/home/$USER/.config/rofi/style_3.rasi"
 local rofi_base = { "rofi", "-dmenu", "-theme", tostring(rofi_theme) }
 
 local function file_exists(path)

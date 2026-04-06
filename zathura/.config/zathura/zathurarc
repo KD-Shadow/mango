@@ -1,92 +1,25 @@
-" -----------------------------------------------------------------------------
-" Zathura settings
-" -----------------------------------------------------------------------------
+# Zathura configuration file
+# See man `man zathurarc'
 
-" Colors
-set default-bg              "rgba(20, 22, 23, 1)"
-set default-fg              "#a8b665"
+# Open document in fit-width mode by default
+set adjust-open "best-fit"
 
-set statusbar-bg            "#141617"
-set statusbar-fg            "#a8b665"
+# One page per row by default
+set pages-per-row 1
 
-set inputbar-bg             "#141617"
-set inputbar-fg             "#a8b665"
+#stop at page boundries
+set scroll-page-aware "true"
+set smooth-scroll "true"
+set scroll-full-overlap 0.01
+set scroll-step 100
 
-set notification-error-bg   "#601410"
-set notification-error-fg   "#e96962"
+#zoom settings
+set zoom-min 10
+set guioptions ""
 
-set notification-warning-bg "#555c34"
-set notification-warning-fg "#8c1d18"
+set font "JetBrains Mono Nerd Font Mono 12"
 
-set highlight-color         "#555c34"
-set highlight-active-color  "#a8b665"
+set render-loading "false"
+set scroll-step 50
 
-set completion-highlight-fg "#141617"
-set completion-highlight-bg #a8b665""
-
-set completion-bg           "#141617"
-set completion-fg           "#a8b665"
-
-set notification-bg         "#141617"
-set notification-fg         "#a8b665"
-
-set recolor                 "true"
-set recolor-lightcolor      "rgba(20, 22, 23, 1)"
-set recolor-darkcolor       "#a8b665"
-set recolor-reverse-video   "true"
-set recolor-keephue         "true"
-
-" Clipboard
-set selection-clipboard clipboard
-
-" Search
-set incremental-search true
-set search-hadjust true
-
-" Autoadjust
-set adjust-open width
-
-" Typography
-set font "FiraCode Nerd Font 12"
-
-" -----------------------------------------------------------------------------
-" Zathura mappings
-" -----------------------------------------------------------------------------
-" remove status bar
-set guioptions none
-" Zoom in/out
-map [normal]     z zoom in
-map [normal]     Z zoom out
-map [fullscreen] z zoom in
-map [fullscreen] Z zoom out
-
-" Toggle mode
-map [normal]     D toggle_page_mode
-map [fullscreen] D toggle_page_mode
-
-" Scroll
-map [normal]     u scroll half-up
-map [normal]     d scroll half-down
-map [fullscreen] u scroll half-up
-map [fullscreen] d scroll half-down
-
-" Fullscreen
-map [normal]     f toggle_fullscreen
-map [fullscreen] f toggle_fullscreen
-
-" Reload
-map [normal]     <C-r> reload
-map [fullscreen] <C-r> reload
-
-" Status bar
-map [normal]     b toggle_statusbar
-map [fullscreen] b toggle_statusbar
-
-" Set width as in mupdf
-map [normal]     H adjust_window best-fit
-map [normal]     W adjust_window width
-map [fullscreen] H adjust_window best-fit
-map [fullscreen] W adjust_window width
-
-map [normal]     i set recolor
-map [fullscreen] i set recolor
+include noctaliarc

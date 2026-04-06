@@ -5,7 +5,11 @@ SETTINGS="$HOME/.config/noctalia-shell/settings.json"
 STATIC_THEMES=(
   "Catppuccin"
   "Kanagawa"
+  "Lilac AMOLED"
+  "Rosey AMOLED"
+  "Osaka jade"
   "Rose Pine"
+  "Monochrome"
   "Tokyo Night"
   "Nord"
 )

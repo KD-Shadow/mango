@@ -1,0 +1,6 @@
+{
+  "nvim": "neovide",
+  "runInTerminal": true,
+  "sessionDir": "~/.local/share/nvim/sessions",
+  "includeInSearch": true
+}

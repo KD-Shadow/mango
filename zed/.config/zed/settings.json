@@ -1,10 +1,18 @@
 {
     "disable_ai": false,
     "relative_line_numbers": "enabled",
-    "icon_theme": "Symbols Icon Theme",
-    "theme": "DankShell Dark",
+    "icon_theme": {
+        "mode": "light",
+        "light": "Symbols Icon Theme",
+        "dark": "Symbols Icon Theme",
+    },
+    "theme": {
+        "mode": "dark",
+        "light": "One Light",
+        "dark": "Noctalia Dark Transparent",
+    },
     "theme_overrides": {
-        "DankShell Dark": {
+        "Noctalia Dark": {
             "syntax": {
                 "comment": {
                     "font_style": "italic",

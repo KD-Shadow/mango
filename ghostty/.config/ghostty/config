@@ -1,4 +1,4 @@
-config-file = ~/.config/ghostty/themes/dankcolors
+#config-file = ~/.config/ghostty/themes/dankcolors
 
 font-family = JetBrainsMono Nerd Font
 font-size = 11.5
@@ -10,3 +10,4 @@ cursor-style-blink = true
 quit-after-last-window-closed = true
 confirm-close-surface = false
 scrollbar=never
+theme = noctalia

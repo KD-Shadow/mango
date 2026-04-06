@@ -114,11 +114,11 @@ return {
           scores = false, -- show scores in the list
         },
         layout = {
-          -- preset="ivy",
+          preset = "ivy",
           -- preset = "vscode",
           -- preset = "left",
           -- preset = "right",
-          preset = "dropdown",
+          -- preset = "dropdown",
           cycle = false,
         },
         layouts = {

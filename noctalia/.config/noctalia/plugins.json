@@ -7,6 +7,10 @@
         }
     ],
     "states": {
+        "music-search": {
+            "enabled": true,
+            "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"
+        },
         "nvim-session-provider": {
             "enabled": true,
             "sourceUrl": "https://github.com/noctalia-dev/noctalia-plugins"

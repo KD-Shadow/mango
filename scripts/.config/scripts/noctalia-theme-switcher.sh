@@ -8,8 +8,10 @@ STATIC_THEMES=(
   "Lilac AMOLED"
   "Rosey AMOLED"
   "Osaka jade"
+  "Cyberpunk"
   "Rose Pine"
   "Monochrome"
+  "Hexa34C"
   "Tokyo Night"
   "Nord"
 )

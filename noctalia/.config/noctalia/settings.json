@@ -98,6 +98,45 @@
                     "showBadge": false,
                     "showLabelsOnlyWhenOccupied": true,
                     "unfocusedIconsOpacity": 1
+                },
+                {
+                    "commandPrefix": "music-search",
+                    "defaultSettings": {
+                        "autoSaveMp3AfterPlayback": false,
+                        "defaultPanelLibrarySection": "tracks",
+                        "defaultPanelTab": "search",
+                        "panelDensity": "balanced",
+                        "previewMetadataMode": "always",
+                        "previewPaneWidth": 0,
+                        "previewThumbnailSize": "comfortable",
+                        "showAlbumMetadata": true,
+                        "showBarHoverTrackTitle": true,
+                        "showDurationMetadata": true,
+                        "showHomeArtists": true,
+                        "showHomePlaylists": true,
+                        "showHomeRecent": true,
+                        "showHomeTags": true,
+                        "showHomeTop": true,
+                        "showPanelHeader": true,
+                        "showPanelNowPlaying": true,
+                        "showPanelPlaybackProgress": true,
+                        "showPanelPreview": true,
+                        "showPanelProviderChips": true,
+                        "showPanelQueueControls": true,
+                        "showPanelRecentTracks": true,
+                        "showPanelSearchHelper": true,
+                        "showPanelSpeedControls": true,
+                        "showPanelStatusBanner": true,
+                        "showPanelUrlActions": true,
+                        "showPlayStatsMetadata": true,
+                        "showPreviewChips": true,
+                        "showRatingMetadata": true,
+                        "showStatusMetadata": true,
+                        "showTagMetadata": true,
+                        "showUploaderMetadata": true,
+                        "ytPlayerClient": "android"
+                    },
+                    "id": "plugin:music-search"
                 }
             ],
             "left": [
@@ -242,7 +281,7 @@
                 "id": "calendar-month-card"
             },
             {
-                "enabled": true,
+                "enabled": false,
                 "id": "weather-card"
             }
         ]
@@ -253,7 +292,7 @@
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "monitorForColors": "",
-        "predefinedScheme": "Monochrome",
+        "predefinedScheme": "Cyberpunk",
         "schedulingMode": "off",
         "syncGsettings": true,
         "useWallpaperColors": false
@@ -441,12 +480,12 @@
         "enabled": true,
         "fadeDuration": 5,
         "lockCommand": "",
-        "lockTimeout": 660,
+        "lockTimeout": 400,
         "resumeLockCommand": "",
         "resumeScreenOffCommand": "",
         "resumeSuspendCommand": "",
         "screenOffCommand": "",
-        "screenOffTimeout": 600,
+        "screenOffTimeout": 500,
         "suspendCommand": "",
         "suspendTimeout": 1800
     },
@@ -462,7 +501,7 @@
         "showWeekNumberInCalendar": false,
         "use12hourFormat": false,
         "useFahrenheit": false,
-        "weatherEnabled": true,
+        "weatherEnabled": false,
         "weatherShowEffects": true,
         "weatherTaliaMascotAlways": false
     },
@@ -540,7 +579,7 @@
         "notifyUpdates": true
     },
     "sessionMenu": {
-        "countdownDuration": 10000,
+        "countdownDuration": 2000,
         "enableCountdown": true,
         "largeButtonsLayout": "single-row",
         "largeButtonsStyle": true,
@@ -663,6 +702,14 @@
             {
                 "enabled": true,
                 "id": "gtk"
+            },
+            {
+                "enabled": true,
+                "id": "spicetify"
+            },
+            {
+                "enabled": true,
+                "id": "discord"
             }
         ],
         "enableUserTheming": true
@@ -687,9 +734,51 @@
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [
+            {
+                "appearance": "dark",
+                "colorScheme": "Monochrome",
+                "darkMode": true,
+                "generationMethod": "tonal-spot",
+                "paletteColors": [
+                    "#aaaaaa",
+                    "#a7a7a7",
+                    "#cccccc",
+                    "#dddddd"
+                ],
+                "path": "/home/sh4dow/Pictures/Wallpapers/wallhaven_451lj5.jpg",
+                "useWallpaperColors": false
+            },
+            {
+                "appearance": "dark",
+                "colorScheme": "Monochrome",
+                "darkMode": true,
+                "generationMethod": "tonal-spot",
+                "paletteColors": [
+                    "#aaaaaa",
+                    "#a7a7a7",
+                    "#cccccc",
+                    "#dddddd"
+                ],
+                "path": "/home/sh4dow/Pictures/Wallpapers/wallhaven_7jp1e9.jpg",
+                "useWallpaperColors": false
+            },
+            {
+                "appearance": "dark",
+                "colorScheme": "Monochrome",
+                "darkMode": true,
+                "generationMethod": "tonal-spot",
+                "paletteColors": [
+                    "#aaaaaa",
+                    "#a7a7a7",
+                    "#cccccc",
+                    "#dddddd"
+                ],
+                "path": "/home/sh4dow/Pictures/Wallpapers/wallhaven_xl2qjd.jpg",
+                "useWallpaperColors": false
+            }
         ],
         "fillColor": "#000000",
-        "fillMode": "crop",
+        "fillMode": "center",
         "hideWallpaperFilenames": false,
         "linkLightAndDarkWallpapers": true,
         "monitorDirectories": [
@@ -716,13 +805,13 @@
         ],
         "useOriginalImages": false,
         "useSolidColor": false,
-        "useWallhaven": true,
+        "useWallhaven": false,
         "viewMode": "recursive",
         "wallhavenApiKey": "",
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",
         "wallhavenPurity": "100",
-        "wallhavenQuery": "anime",
+        "wallhavenQuery": "dragon",
         "wallhavenRatios": "",
         "wallhavenResolutionHeight": "",
         "wallhavenResolutionMode": "atleast",

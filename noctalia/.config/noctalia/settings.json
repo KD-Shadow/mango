@@ -152,33 +152,11 @@
                 {
                     "clockColor": "none",
                     "customFont": "",
-                    "formatHorizontal": "HH:mm ddd, MMM dd",
+                    "formatHorizontal": "h:mm AP - MMM : d",
                     "formatVertical": "h mm AP - dd MM",
                     "id": "Clock",
                     "tooltipFormat": "HH:mm ddd, MMM dd",
                     "useCustomFont": false
-                },
-                {
-                    "compactMode": true,
-                    "diskPath": "/",
-                    "iconColor": "none",
-                    "id": "SystemMonitor",
-                    "showCpuCores": false,
-                    "showCpuFreq": false,
-                    "showCpuTemp": true,
-                    "showCpuUsage": true,
-                    "showDiskAvailable": false,
-                    "showDiskUsage": false,
-                    "showDiskUsageAsPercent": false,
-                    "showGpuTemp": false,
-                    "showLoadAverage": false,
-                    "showMemoryAsPercent": false,
-                    "showMemoryUsage": true,
-                    "showNetworkStats": false,
-                    "showSwapUsage": false,
-                    "textColor": "none",
-                    "useMonospaceFont": true,
-                    "usePadding": false
                 },
                 {
                     "colorizeIcons": false,
@@ -292,7 +270,7 @@
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "monitorForColors": "",
-        "predefinedScheme": "Cyberpunk",
+        "predefinedScheme": "Monochrome",
         "schedulingMode": "off",
         "syncGsettings": true,
         "useWallpaperColors": false
@@ -734,48 +712,6 @@
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [
-            {
-                "appearance": "dark",
-                "colorScheme": "Monochrome",
-                "darkMode": true,
-                "generationMethod": "tonal-spot",
-                "paletteColors": [
-                    "#aaaaaa",
-                    "#a7a7a7",
-                    "#cccccc",
-                    "#dddddd"
-                ],
-                "path": "/home/sh4dow/Pictures/Wallpapers/wallhaven_451lj5.jpg",
-                "useWallpaperColors": false
-            },
-            {
-                "appearance": "dark",
-                "colorScheme": "Monochrome",
-                "darkMode": true,
-                "generationMethod": "tonal-spot",
-                "paletteColors": [
-                    "#aaaaaa",
-                    "#a7a7a7",
-                    "#cccccc",
-                    "#dddddd"
-                ],
-                "path": "/home/sh4dow/Pictures/Wallpapers/wallhaven_7jp1e9.jpg",
-                "useWallpaperColors": false
-            },
-            {
-                "appearance": "dark",
-                "colorScheme": "Monochrome",
-                "darkMode": true,
-                "generationMethod": "tonal-spot",
-                "paletteColors": [
-                    "#aaaaaa",
-                    "#a7a7a7",
-                    "#cccccc",
-                    "#dddddd"
-                ],
-                "path": "/home/sh4dow/Pictures/Wallpapers/wallhaven_xl2qjd.jpg",
-                "useWallpaperColors": false
-            }
         ],
         "fillColor": "#000000",
         "fillMode": "center",
@@ -811,7 +747,7 @@
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",
         "wallhavenPurity": "100",
-        "wallhavenQuery": "dragon",
+        "wallhavenQuery": "tokyo night",
         "wallhavenRatios": "",
         "wallhavenResolutionHeight": "",
         "wallhavenResolutionMode": "atleast",

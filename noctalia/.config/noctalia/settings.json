@@ -42,19 +42,19 @@
     "bar": {
         "autoHideDelay": 500,
         "autoShowDelay": 150,
-        "backgroundOpacity": 0.93,
-        "barType": "framed",
+        "backgroundOpacity": 0.64,
+        "barType": "floating",
         "capsuleColorKey": "none",
         "capsuleOpacity": 1,
         "contentPadding": 2,
-        "density": "mini",
+        "density": "compact",
         "displayMode": "always_visible",
         "enableExclusionZoneInset": true,
         "fontScale": 0.9400000000000001,
         "frameRadius": 12,
         "frameThickness": 8,
         "hideOnOverview": false,
-        "marginHorizontal": 4,
+        "marginHorizontal": 267,
         "marginVertical": 4,
         "middleClickAction": "settings",
         "middleClickCommand": "",
@@ -64,7 +64,7 @@
         "mouseWheelAction": "workspace",
         "mouseWheelWrap": true,
         "outerCorners": true,
-        "position": "right",
+        "position": "bottom",
         "reverseScroll": false,
         "rightClickAction": "controlCenter",
         "rightClickCommand": "",
@@ -74,10 +74,47 @@
         "showCapsule": true,
         "showOnWorkspaceSwitch": true,
         "showOutline": false,
-        "useSeparateOpacity": false,
+        "useSeparateOpacity": true,
         "widgetSpacing": 6,
         "widgets": {
             "center": [
+                {
+                    "compactMode": false,
+                    "hideMode": "hidden",
+                    "hideWhenIdle": false,
+                    "id": "MediaMini",
+                    "maxWidth": 145,
+                    "panelShowAlbumArt": true,
+                    "scrollingMode": "hover",
+                    "showAlbumArt": true,
+                    "showArtistFirst": true,
+                    "showProgressRing": true,
+                    "showVisualizer": false,
+                    "textColor": "none",
+                    "useFixedWidth": false,
+                    "visualizerType": "linear"
+                },
+                {
+                    "clockColor": "none",
+                    "customFont": "",
+                    "formatHorizontal": "h:mm AP - MMM : d",
+                    "formatVertical": "h mm AP - dd MM",
+                    "id": "Clock",
+                    "tooltipFormat": "HH:mm ddd, MMM dd",
+                    "useCustomFont": false
+                }
+            ],
+            "left": [
+                {
+                    "colorizeSystemIcon": "none",
+                    "colorizeSystemText": "none",
+                    "customIconPath": "",
+                    "enableColorization": false,
+                    "icon": "rocket",
+                    "iconColor": "none",
+                    "id": "Launcher",
+                    "useDistroLogo": false
+                },
                 {
                     "characterCount": 2,
                     "colorizeIcons": false,
@@ -95,68 +132,9 @@
                     "pillSize": 0.6,
                     "showApplications": false,
                     "showApplicationsHover": false,
-                    "showBadge": false,
+                    "showBadge": true,
                     "showLabelsOnlyWhenOccupied": true,
                     "unfocusedIconsOpacity": 1
-                },
-                {
-                    "commandPrefix": "music-search",
-                    "defaultSettings": {
-                        "autoSaveMp3AfterPlayback": false,
-                        "defaultPanelLibrarySection": "tracks",
-                        "defaultPanelTab": "search",
-                        "panelDensity": "balanced",
-                        "previewMetadataMode": "always",
-                        "previewPaneWidth": 0,
-                        "previewThumbnailSize": "comfortable",
-                        "showAlbumMetadata": true,
-                        "showBarHoverTrackTitle": true,
-                        "showDurationMetadata": true,
-                        "showHomeArtists": true,
-                        "showHomePlaylists": true,
-                        "showHomeRecent": true,
-                        "showHomeTags": true,
-                        "showHomeTop": true,
-                        "showPanelHeader": true,
-                        "showPanelNowPlaying": true,
-                        "showPanelPlaybackProgress": true,
-                        "showPanelPreview": true,
-                        "showPanelProviderChips": true,
-                        "showPanelQueueControls": true,
-                        "showPanelRecentTracks": true,
-                        "showPanelSearchHelper": true,
-                        "showPanelSpeedControls": true,
-                        "showPanelStatusBanner": true,
-                        "showPanelUrlActions": true,
-                        "showPlayStatsMetadata": true,
-                        "showPreviewChips": true,
-                        "showRatingMetadata": true,
-                        "showStatusMetadata": true,
-                        "showTagMetadata": true,
-                        "showUploaderMetadata": true,
-                        "ytPlayerClient": "android"
-                    },
-                    "id": "plugin:music-search"
-                }
-            ],
-            "left": [
-                {
-                    "colorizeSystemIcon": "none",
-                    "customIconPath": "",
-                    "enableColorization": false,
-                    "icon": "rocket",
-                    "iconColor": "none",
-                    "id": "Launcher",
-                    "useDistroLogo": false
-                },
-                {
-                    "clockColor": "none",
-                    "customFont": "",
-                    "formatHorizontal": "h:mm AP - MMM : d",
-                    "formatVertical": "h mm AP - dd MM",
-                    "id": "Clock",
-                    "tooltipFormat": "HH:mm ddd, MMM dd",
-                    "useCustomFont": false
                 },
                 {
                     "colorizeIcons": false,
@@ -168,22 +146,6 @@
                     "showText": true,
                     "textColor": "none",
                     "useFixedWidth": false
-                },
-                {
-                    "compactMode": false,
-                    "hideMode": "hidden",
-                    "hideWhenIdle": false,
-                    "id": "MediaMini",
-                    "maxWidth": 145,
-                    "panelShowAlbumArt": true,
-                    "scrollingMode": "hover",
-                    "showAlbumArt": true,
-                    "showArtistFirst": true,
-                    "showProgressRing": true,
-                    "showVisualizer": false,
-                    "textColor": "none",
-                    "useFixedWidth": false,
-                    "visualizerType": "linear"
                 }
             ],
             "right": [
@@ -232,6 +194,7 @@
                 {
                     "colorizeDistroLogo": false,
                     "colorizeSystemIcon": "none",
+                    "colorizeSystemText": "none",
                     "customIconPath": "",
                     "enableColorization": false,
                     "icon": "noctalia",
@@ -270,10 +233,10 @@
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "monitorForColors": "",
-        "predefinedScheme": "Monochrome",
+        "predefinedScheme": "Catppuccin",
         "schedulingMode": "off",
         "syncGsettings": true,
-        "useWallpaperColors": false
+        "useWallpaperColors": true
     },
     "controlCenter": {
         "cards": [
@@ -741,13 +704,13 @@
         ],
         "useOriginalImages": false,
         "useSolidColor": false,
-        "useWallhaven": false,
+        "useWallhaven": true,
         "viewMode": "recursive",
         "wallhavenApiKey": "",
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",
         "wallhavenPurity": "100",
-        "wallhavenQuery": "tokyo night",
+        "wallhavenQuery": "mountains",
         "wallhavenRatios": "",
         "wallhavenResolutionHeight": "",
         "wallhavenResolutionMode": "atleast",

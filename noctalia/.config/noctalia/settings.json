@@ -192,14 +192,62 @@
                     "textColor": "none"
                 },
                 {
-                    "colorizeDistroLogo": false,
-                    "colorizeSystemIcon": "none",
-                    "colorizeSystemText": "none",
-                    "customIconPath": "",
-                    "enableColorization": false,
-                    "icon": "noctalia",
-                    "id": "ControlCenter",
-                    "useDistroLogo": false
+                    "commandPrefix": "music-search",
+                    "defaultSettings": {
+                        "autoSaveMp3AfterPlayback": false,
+                        "defaultPanelLibrarySection": "tracks",
+                        "defaultPanelTab": "search",
+                        "panelDensity": "balanced",
+                        "previewMetadataMode": "always",
+                        "previewPaneWidth": 0,
+                        "previewThumbnailSize": "comfortable",
+                        "showAlbumMetadata": true,
+                        "showBarHoverTrackTitle": true,
+                        "showDurationMetadata": true,
+                        "showHomeArtists": true,
+                        "showHomePlaylists": true,
+                        "showHomeRecent": true,
+                        "showHomeTags": true,
+                        "showHomeTop": true,
+                        "showPanelHeader": true,
+                        "showPanelNowPlaying": true,
+                        "showPanelPlaybackProgress": true,
+                        "showPanelPreview": true,
+                        "showPanelProviderChips": true,
+                        "showPanelQueueControls": true,
+                        "showPanelRecentTracks": true,
+                        "showPanelSearchHelper": true,
+                        "showPanelSpeedControls": true,
+                        "showPanelStatusBanner": true,
+                        "showPanelUrlActions": true,
+                        "showPlayStatsMetadata": true,
+                        "showPreviewChips": true,
+                        "showRatingMetadata": true,
+                        "showStatusMetadata": true,
+                        "showTagMetadata": true,
+                        "showUploaderMetadata": true,
+                        "ytPlayerClient": "android"
+                    },
+                    "id": "plugin:music-search"
+                },
+                {
+                    "defaultSettings": {
+                        "colorHistory": [
+                        ],
+                        "detectedCompositor": "",
+                        "detectedRecorder": "",
+                        "filenameFormat": "",
+                        "installedLangs": [
+                            "eng"
+                        ],
+                        "paletteColors": [
+                        ],
+                        "screenshotPath": "",
+                        "selectedOcrLang": "eng",
+                        "transAvailable": false,
+                        "videoPath": ""
+                    },
+                    "id": "plugin:screen-toolkit"
                 }
             ]
         }
@@ -233,10 +281,10 @@
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "monitorForColors": "",
-        "predefinedScheme": "Catppuccin",
+        "predefinedScheme": "Rose Pine",
         "schedulingMode": "off",
         "syncGsettings": true,
-        "useWallpaperColors": true
+        "useWallpaperColors": false
     },
     "controlCenter": {
         "cards": [
@@ -651,6 +699,14 @@
             {
                 "enabled": true,
                 "id": "discord"
+            },
+            {
+                "enabled": true,
+                "id": "cava"
+            },
+            {
+                "enabled": true,
+                "id": "code"
             }
         ],
         "enableUserTheming": true
@@ -671,7 +727,7 @@
     },
     "wallpaper": {
         "automationEnabled": false,
-        "directory": "/home/sh4dow/Pictures/Wallpapers",
+        "directory": "/home/sh4dow/Pictures/wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [
@@ -704,13 +760,13 @@
         ],
         "useOriginalImages": false,
         "useSolidColor": false,
-        "useWallhaven": true,
-        "viewMode": "recursive",
+        "useWallhaven": false,
+        "viewMode": "single",
         "wallhavenApiKey": "",
         "wallhavenCategories": "111",
         "wallhavenOrder": "desc",
         "wallhavenPurity": "100",
-        "wallhavenQuery": "mountains",
+        "wallhavenQuery": "cool",
         "wallhavenRatios": "",
         "wallhavenResolutionHeight": "",
         "wallhavenResolutionMode": "atleast",

@@ -3,24 +3,24 @@ local M = {}
 function M.setup()
   require("base16-colorscheme").setup({
     -- Background tones
-    base00 = "#131316", -- Default Background
-    base01 = "#1f1f23", -- Lighter Background (status bars)
-    base02 = "#2a2a2d", -- Selection Background
-    base03 = "#90909a", -- Comments, Invisibles
+    base00 = "#191724", -- Default Background
+    base01 = "#26233a", -- Lighter Background (status bars)
+    base02 = "#2e2b47", -- Selection Background
+    base03 = "#656182", -- Comments, Invisibles
     -- Foreground tones
-    base04 = "#c6c5d0", -- Dark Foreground (status bars)
-    base05 = "#e4e1e6", -- Default Foreground
-    base06 = "#e4e1e6", -- Light Foreground
-    base07 = "#e4e1e6", -- Lightest Foreground
+    base04 = "#908caa", -- Dark Foreground (status bars)
+    base05 = "#e0def4", -- Default Foreground
+    base06 = "#e0def4", -- Light Foreground
+    base07 = "#e0def4", -- Lightest Foreground
     -- Accent colors
-    base08 = "#ffb4ab", -- Variables, XML Tags, Errors
-    base09 = "#e4bad9", -- Integers, Constants
-    base0A = "#c2c5dd", -- Classes, Search Background
-    base0B = "#b8c4ff", -- Strings, Diff Inserted
-    base0C = "#e4bad9", -- Regex, Escape Chars
-    base0D = "#b8c4ff", -- Functions, Methods
-    base0E = "#c2c5dd", -- Keywords, Storage
-    base0F = "#93000a", -- Deprecated, Embedded Tags
+    base08 = "#eb6f92", -- Variables, XML Tags, Errors
+    base09 = "#31748f", -- Integers, Constants
+    base0A = "#9ccfd8", -- Classes, Search Background
+    base0B = "#ebbcba", -- Strings, Diff Inserted
+    base0C = "#96d1e9", -- Regex, Escape Chars
+    base0D = "#e99996", -- Functions, Methods
+    base0E = "#96dce9", -- Keywords, Storage
+    base0F = "#a00833", -- Deprecated, Embedded Tags
   })
 
   local hl = function(group, opts)
@@ -28,17 +28,17 @@ function M.setup()
   end
 
   local c = {
-    bg = "#131316",
-    bg_container = "#1f1f23",
-    bg_high = "#2a2a2d",
-    fg = "#e4e1e6",
-    fg_muted = "#c6c5d0",
-    border = "#90909a",
-    primary = "#b8c4ff",
-    secondary = "#c2c5dd",
-    tertiary = "#e4bad9",
-    error = "#ffb4ab",
-    match = "#b8c4ff",
+    bg = "#191724",
+    bg_container = "#26233a",
+    bg_high = "#2e2b47",
+    fg = "#e0def4",
+    fg_muted = "#908caa",
+    border = "#656182",
+    primary = "#ebbcba",
+    secondary = "#9ccfd8",
+    tertiary = "#31748f",
+    error = "#eb6f92",
+    match = "#e99996",
   }
 
   -- ── mini.files ───────────────────────────────────────────────────────

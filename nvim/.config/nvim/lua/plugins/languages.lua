@@ -1,34 +1,23 @@
 return {
 
   -- ============================================================
-  -- MASON - Tool Installer
+  -- MASON
   -- ============================================================
   {
     "mason-org/mason.nvim",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
-        -- Lua / Shell
         "luacheck",
         "shellcheck",
         "shfmt",
-
-        -- Web
-        "tailwindcss-language-server",
-        "typescript-language-server",
-        "css-lsp",
-        "html-lsp",
         "emmet-ls",
-        "prettierd",
-        "eslint-lsp",
-
-        -- Python (switched to basedpyright)
         "basedpyright",
         "ruff",
         "debugpy",
-
-        -- Rust
         "rust-analyzer",
         "codelldb",
+        -- extras handle: tailwindcss-language-server, typescript-language-server,
+        -- css-lsp, html-lsp, prettierd, eslint-lsp
       })
     end,
   },
@@ -40,44 +29,28 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = { enabled = true },
-
-      -- Stop ALL LSPs from re-running diagnostics on every keystroke
       diagnostics = {
         update_in_insert = false,
         virtual_text = { spacing = 4 },
       },
-
       on_attach = function(_, _)
         vim.api.nvim_set_hl(0, "LspReferenceText", { underline = true })
         vim.api.nvim_set_hl(0, "LspReferenceRead", { underline = true })
         vim.api.nvim_set_hl(0, "LspReferenceWrite", { underline = true, bold = true })
       end,
-
-      ---@type lspconfig.options
       servers = {
 
-        -- ── HTML ────────────────────────────────────────────────
         html = {
           filetypes = { "html", "htmldjango", "jinja" },
         },
 
-        -- ── Emmet (HTML/CSS expansion) ──────────────────────────
         emmet_ls = {
-          filetypes = {
-            "html",
-            "css",
-            "scss",
-            "sass",
-            "javascriptreact",
-            "typescriptreact",
-            "htmldjango",
-          },
+          filetypes = { "html", "css", "scss", "sass", "javascriptreact", "typescriptreact", "htmldjango" },
           on_attach = function(client, _)
             client.server_capabilities.completionProvider.triggerCharacters = {}
           end,
         },
 
-        -- ── CSS ─────────────────────────────────────────────────
         cssls = {
           settings = {
             css = { validate = true, lint = { unknownAtRules = "ignore" } },
@@ -86,11 +59,8 @@ return {
           },
         },
 
-        -- ── Tailwind CSS ────────────────────────────────────────
+        -- Keep only your custom classRegex override, the rest is handled by the extra
         tailwindcss = {
-          root_dir = function(...)
-            return require("lspconfig.util").root_pattern(".git")(...)
-          end,
           settings = {
             tailwindCSS = {
               experimental = { classRegex = { "tw`([^`]*)", "tw\\('([^']*)'\\)" } },
@@ -98,66 +68,12 @@ return {
           },
         },
 
-        -- ── TypeScript / JavaScript ─────────────────────────────
-        tsserver = {
-          root_dir = function(...)
-            return require("lspconfig.util").root_pattern(".git")(...)
-          end,
-          single_file_support = false,
-          -- Cap memory so it doesn't eat your RAM on large projects
-          init_options = {
-            maxTsServerMemory = 512,
-          },
-          settings = {
-            typescript = {
-              inlayHints = {
-                includeInlayParameterNameHints = "literal",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = false,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-            },
-            javascript = {
-              inlayHints = {
-                includeInlayParameterNameHints = "all",
-                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-            },
-          },
-        },
-
-        -- ── ESLint ───────────────────────────────────────────────
-        eslint = {
-          settings = {
-            workingDirectory = { mode = "auto" },
-            format = { enable = true },
-            lint = { enable = true },
-          },
-          on_attach = function(_, bufnr)
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              buffer = bufnr,
-              command = "EslintFixAll",
-            })
-          end,
-        },
-
-        -- ── Python (basedpyright - faster drop-in for pyright) ──
         basedpyright = {
           settings = {
             basedpyright = {
               analysis = {
                 typeCheckingMode = "standard",
-                -- Only check open files, not the entire workspace
                 diagnosticMode = "openFilesOnly",
-                -- Don't crawl into library internals (FastAPI/SQLAlchemy stubs are huge)
                 useLibraryCodeForTypes = false,
                 autoSearchPaths = true,
               },
@@ -165,7 +81,6 @@ return {
           },
         },
 
-        -- ── Lua ─────────────────────────────────────────────────
         lua_ls = {
           single_file_support = true,
           settings = {
@@ -187,28 +102,24 @@ return {
                 disable = { "incomplete-signature-doc", "trailing-space" },
                 groupSeverity = { strong = "Warning", strict = "Warning" },
                 groupFileStatus = {
-                  ["ambiguity"] = "Opened",
-                  ["await"] = "Opened",
-                  ["codestyle"] = "None",
-                  ["duplicate"] = "Opened",
-                  ["global"] = "Opened",
-                  ["luadoc"] = "Opened",
-                  ["redefined"] = "Opened",
-                  ["strict"] = "Opened",
-                  ["strong"] = "Opened",
+                  ambiguity = "Opened",
+                  await = "Opened",
+                  codestyle = "None",
+                  duplicate = "Opened",
+                  global = "Opened",
+                  luadoc = "Opened",
+                  redefined = "Opened",
+                  strict = "Opened",
+                  strong = "Opened",
                   ["type-check"] = "Opened",
-                  ["unbalanced"] = "Opened",
-                  ["unused"] = "Opened",
+                  unbalanced = "Opened",
+                  unused = "Opened",
                 },
                 unusedLocalExclude = { "_*" },
               },
               format = {
                 enable = false,
-                defaultConfig = {
-                  indent_style = "space",
-                  indent_size = "2",
-                  continuation_indent_size = "2",
-                },
+                defaultConfig = { indent_style = "space", indent_size = "2", continuation_indent_size = "2" },
               },
             },
           },
@@ -219,33 +130,24 @@ return {
   },
 
   -- ============================================================
-  -- TREESITTER - Syntax Highlighting & Parsing
+  -- TREESITTER
   -- ============================================================
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
-        -- Web
+        -- extras handle: javascript, typescript, tsx, json, jsonc
         "html",
         "css",
-        "javascript",
-        "typescript",
-        "tsx",
-        "json",
-        "jsonc",
         "scss",
         "graphql",
         "http",
         "handlebars",
-        "glimmer",
         "astro",
-        -- Python
         "python",
-        -- Rust
         "rust",
         "toml",
-        -- Lua / Shell / Misc
         "lua",
         "bash",
         "vim",
@@ -261,7 +163,7 @@ return {
   },
 
   -- ============================================================
-  -- FORMATTING - Conform
+  -- FORMATTING
   -- ============================================================
   {
     "stevearc/conform.nvim",
@@ -286,29 +188,14 @@ return {
         lsp_format = "fallback",
       },
       formatters_by_ft = {
-        -- Lua / Shell
+        -- prettier extra handles all web filetypes
         lua = { "stylua" },
         sh = { "shfmt" },
         fish = { "fish_indent" },
-        -- Python
         python = { "isort", "black" },
-        -- C/C++
         c = { "clang_format" },
         cpp = { "clang_format" },
-        -- Rust
         rust = { "rustfmt" },
-        -- Web
-        html = { "prettierd", "prettier" },
-        css = { "prettierd", "prettier" },
-        scss = { "prettierd", "prettier" },
-        less = { "prettierd", "prettier" },
-        javascript = { "prettierd", "prettier" },
-        javascriptreact = { "prettierd", "prettier" },
-        typescript = { "prettierd", "prettier" },
-        typescriptreact = { "prettierd", "prettier" },
-        json = { "prettierd", "prettier" },
-        jsonc = { "prettierd", "prettier" },
-        markdown = { "prettierd", "prettier" },
       },
       formatters = {
         injected = { options = { ignore_errors = true } },
@@ -317,7 +204,7 @@ return {
   },
 
   -- ============================================================
-  -- AUTO-TAG - Auto close & rename HTML/JSX tags
+  -- AUTO-TAG
   -- ============================================================
   {
     "windwp/nvim-ts-autotag",
@@ -325,14 +212,7 @@ return {
     opts = {
       autotag = {
         enable = true,
-        filetypes = {
-          "html",
-          "xml",
-          "javascript",
-          "typescript",
-          "javascriptreact",
-          "typescriptreact",
-        },
+        filetypes = { "html", "xml", "javascript", "typescript", "javascriptreact", "typescriptreact" },
       },
     },
   },
@@ -346,34 +226,17 @@ return {
     cmd = "VenvSelect",
     opts = {
       settings = {
-        options = {
-          remember_venv_auto_activate = true, -- auto re-activates last venv
-        },
+        options = { remember_venv_auto_activate = true },
         search = {
           venv = { patterns = { "venv", ".venv", "env", ".env" } },
           poetry = { enabled = true },
           conda = { enabled = true },
         },
-        picker = {
-          name = "snacks",
-        },
+        picker = { name = "snacks" },
       },
     },
     keys = {
       { "<leader>cv", "<cmd>VenvSelect<cr>", desc = "Select VirtualEnv" },
     },
   },
-
-  -- ============================================================
-  -- CMP - Completion Sources
-  -- ============================================================
-  -- {
-  --   "nvim-cmp",
-  --   dependencies = {
-  --     "hrsh7th/cmp-emoji",
-  --   },
-  --   opts = function(_, opts)
-  --     table.insert(opts.sources, { name = "emoji" })
-  --   end,
-  -- },
 }

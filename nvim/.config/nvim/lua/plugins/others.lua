@@ -14,12 +14,6 @@ return {
     vim.keymap.set("n", "<leader>rn", ":IncRename "),
   },
   {
-    "m4xshen/hardtime.nvim",
-    lazy = false,
-    dependencies = { "MunifTanjim/nui.nvim" },
-    opts = {},
-  },
-  {
     "atiladefreitas/dooing",
     lazy = true,
     enabled = false,

@@ -10,6 +10,9 @@
 #   3. Or just remove comment from any example below and modify it.
 #
 # vim: ft=zsh
+# vim: ft=zsh
+# vim: ft=zsh
+# vim: ft=zsh
 # ------------------------------------------------------------------------------
 
 # ── 1. Local Aliases ──────────────────────────────────────────────────

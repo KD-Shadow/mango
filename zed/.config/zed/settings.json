@@ -1,4 +1,15 @@
 {
+    "collaboration_panel": {
+        "dock": "left"
+    },
+    "agent": {
+        "dock": "right",
+        "favorite_models": [],
+        "model_parameters": []
+    },
+    "git_panel": {
+        "dock": "left"
+    },
     "disable_ai": false,
     "relative_line_numbers": "enabled",
     "icon_theme": {
@@ -60,6 +71,7 @@
         },
     },
     "outline_panel": {
+        "dock": "left",
         "default_width": 300,
         "indent_guides": {
             "show": "never",

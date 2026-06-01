@@ -229,25 +229,6 @@
                         "ytPlayerClient": "android"
                     },
                     "id": "plugin:music-search"
-                },
-                {
-                    "defaultSettings": {
-                        "colorHistory": [
-                        ],
-                        "detectedCompositor": "",
-                        "detectedRecorder": "",
-                        "filenameFormat": "",
-                        "installedLangs": [
-                            "eng"
-                        ],
-                        "paletteColors": [
-                        ],
-                        "screenshotPath": "",
-                        "selectedOcrLang": "eng",
-                        "transAvailable": false,
-                        "videoPath": ""
-                    },
-                    "id": "plugin:screen-toolkit"
                 }
             ]
         }
@@ -281,7 +262,7 @@
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "monitorForColors": "",
-        "predefinedScheme": "Rose Pine",
+        "predefinedScheme": "Catppuccin",
         "schedulingMode": "off",
         "syncGsettings": true,
         "useWallpaperColors": false

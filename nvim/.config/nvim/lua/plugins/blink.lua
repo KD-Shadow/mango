@@ -14,6 +14,9 @@ return {
       ["<C-n>"] = { "select_next", "fallback" },
     },
     completion = {
+      keyword = {
+        range = "full",
+      },
       list = {
         selection = {
           preselect = false,

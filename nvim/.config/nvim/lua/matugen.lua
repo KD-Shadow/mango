@@ -1,139 +1,51 @@
-local M = {}
+ local M = {}
 
 function M.setup()
-  require("base16-colorscheme").setup({
-    -- Background tones
-    base00 = "#1e1e2e", -- Default Background
-    base01 = "#313244", -- Lighter Background (status bars)
-    base02 = "#3a3b50", -- Selection Background
-    base03 = "#646789", -- Comments, Invisibles
-    -- Foreground tones
-    base04 = "#a3b4eb", -- Dark Foreground (status bars)
-    base05 = "#cdd6f4", -- Default Foreground
-    base06 = "#cdd6f4", -- Light Foreground
-    base07 = "#cdd6f4", -- Lightest Foreground
-    -- Accent colors
-    base08 = "#f38ba8", -- Variables, XML Tags, Errors
-    base09 = "#94e2d5", -- Integers, Constants
-    base0A = "#fab387", -- Classes, Search Background
-    base0B = "#cba6f7", -- Strings, Diff Inserted
-    base0C = "#96e9db", -- Regex, Escape Chars
-    base0D = "#bb8af4", -- Functions, Methods
-    base0E = "#fab185", -- Keywords, Storage
-    base0F = "#c8043a", -- Deprecated, Embedded Tags
+  require('base16-colorscheme').setup({
+    base00 = '#131316',
+    base01 = '#201f22',
+    base02 = '#2a292c',
+    base03 = '#928f99',
+    base04 = '#c8c5cf',
+    base05 = '#e5e1e5',
+    base06 = '#e5e1e5',
+    base07 = '#e5e1e5',
+    base08 = '#ffb4ab',
+    base09 = '#ecb8d6',
+    base0A = '#c7c4d8',
+    base0B = '#c4c2ef',
+    base0C = '#ecb8d6',
+    base0D = '#c4c2ef',
+    base0E = '#c7c4d8',
+    base0F = '#93000a',
   })
 
-  local hl = function(group, opts)
+  local hi = function(group, opts)
     vim.api.nvim_set_hl(0, group, opts)
   end
 
-  local c = {
-    bg = "#1e1e2e",
-    bg_container = "#313244",
-    bg_high = "#3a3b50",
-    fg = "#cdd6f4",
-    fg_muted = "#a3b4eb",
-    border = "#646789",
-    primary = "#cba6f7",
-    secondary = "#fab387",
-    tertiary = "#94e2d5",
-    error = "#f38ba8",
-    match = "#bb8af4",
-  }
-
-  -- ── mini.files ───────────────────────────────────────────────────────
-  hl("MiniFilesNormal", { fg = c.fg, bg = c.bg_container })
-  hl("MiniFilesBorder", { fg = c.bg_container, bg = c.bg_container })
-  hl("MiniFilesTitle", { fg = c.primary, bg = c.bg_container, bold = true })
-  hl("MiniFilesTitleFocused", { fg = c.primary, bg = c.bg_container, bold = true })
-  hl("MiniFilesCursorLine", { bg = c.bg_high })
-  hl("MiniFilesDirectory", { fg = c.secondary })
-  hl("MiniFilesFile", { fg = c.fg })
-
-  -- ── snacks picker ────────────────────────────────────────────────────
-  hl("SnacksPickerNormal", { fg = c.fg, bg = c.bg_container })
-  hl("SnacksPickerBorder", { fg = c.bg_container, bg = c.bg_container })
-  hl("SnacksPickerTitle", { fg = c.primary, bg = c.bg_container, bold = true })
-  hl("SnacksPickerFooter", { fg = c.fg_muted, bg = c.bg_container })
-  hl("SnacksPickerMatch", { fg = c.match, bold = true })
-  hl("SnacksPickerSelected", { fg = c.primary, bold = true })
-  hl("SnacksPickerCursorLine", { bg = c.bg_high })
-  hl("SnacksPickerPreviewNormal", { fg = c.fg, bg = c.bg })
-  hl("SnacksPickerPreviewBorder", { fg = c.bg, bg = c.bg })
-  hl("SnacksPickerPreviewTitle", { fg = c.secondary, bg = c.bg, bold = true })
-
-  -- ── blink.cmp ────────────────────────────────────────────────────────
-  hl("BlinkCmpMenu", { fg = c.fg, bg = c.bg_container })
-  hl("BlinkCmpMenuBorder", { fg = c.bg_container, bg = c.bg_container })
-  hl("BlinkCmpMenuSelection", { bg = c.bg_high })
-  hl("BlinkCmpScrollBarThumb", { bg = c.border })
-  hl("BlinkCmpScrollBarGutter", { bg = c.bg_container })
-  hl("BlinkCmpLabel", { fg = c.fg })
-  hl("BlinkCmpLabelMatch", { fg = c.match, bold = true })
-  hl("BlinkCmpLabelDeprecated", { fg = c.fg_muted, strikethrough = true })
-  hl("BlinkCmpLabelDescription", { fg = c.fg_muted })
-  hl("BlinkCmpDoc", { fg = c.fg, bg = c.bg_container })
-  hl("BlinkCmpDocBorder", { fg = c.bg_container, bg = c.bg_container })
-  hl("BlinkCmpDocSeparator", { fg = c.border })
-  hl("BlinkCmpDocCursorLine", { bg = c.bg_high })
-  hl("BlinkCmpSignatureHelp", { fg = c.fg, bg = c.bg_container })
-  hl("BlinkCmpSignatureHelpBorder", { fg = c.bg_container, bg = c.bg_container })
-  hl("BlinkCmpSignatureHelpActiveParameter", { fg = c.primary, bold = true })
-  -- kind icons
-  hl("BlinkCmpKindText", { fg = c.fg_muted })
-  hl("BlinkCmpKindMethod", { fg = c.primary })
-  hl("BlinkCmpKindFunction", { fg = c.primary })
-  hl("BlinkCmpKindConstructor", { fg = c.secondary })
-  hl("BlinkCmpKindField", { fg = c.tertiary })
-  hl("BlinkCmpKindVariable", { fg = c.tertiary })
-  hl("BlinkCmpKindClass", { fg = c.secondary })
-  hl("BlinkCmpKindInterface", { fg = c.secondary })
-  hl("BlinkCmpKindModule", { fg = c.secondary })
-  hl("BlinkCmpKindProperty", { fg = c.tertiary })
-  hl("BlinkCmpKindUnit", { fg = c.fg_muted })
-  hl("BlinkCmpKindValue", { fg = c.tertiary })
-  hl("BlinkCmpKindEnum", { fg = c.secondary })
-  hl("BlinkCmpKindKeyword", { fg = c.match })
-  hl("BlinkCmpKindSnippet", { fg = c.tertiary })
-  hl("BlinkCmpKindColor", { fg = c.primary })
-  hl("BlinkCmpKindFile", { fg = c.fg })
-  hl("BlinkCmpKindReference", { fg = c.primary })
-  hl("BlinkCmpKindFolder", { fg = c.secondary })
-  hl("BlinkCmpKindEnumMember", { fg = c.tertiary })
-  hl("BlinkCmpKindConstant", { fg = c.tertiary })
-  hl("BlinkCmpKindStruct", { fg = c.secondary })
-  hl("BlinkCmpKindEvent", { fg = c.error })
-  hl("BlinkCmpKindOperator", { fg = c.fg_muted })
-  hl("BlinkCmpKindTypeParameter", { fg = c.secondary })
-
-  -- ── noice.nvim ───────────────────────────────────────────────────────
-  hl("NoiceCmdline", { fg = c.fg, bg = c.bg_container })
-  hl("NoiceCmdlineIcon", { fg = c.primary })
-  hl("NoiceCmdlineIconSearch", { fg = c.match })
-  hl("NoiceCmdlinePopup", { fg = c.fg, bg = c.bg_container })
-  hl("NoiceCmdlinePopupBorder", { fg = c.border, bg = c.bg_container })
-  hl("NoiceCmdlinePopupBorderSearch", { fg = c.match, bg = c.bg_container })
-  hl("NoiceCmdlinePopupTitle", { fg = c.primary, bg = c.bg_container, bold = true })
-  hl("NoiceConfirm", { fg = c.fg, bg = c.bg_container })
-  hl("NoiceConfirmBorder", { fg = c.primary, bg = c.bg_container })
-  hl("NoicePopup", { fg = c.fg, bg = c.bg_container })
-  hl("NoicePopupBorder", { fg = c.border, bg = c.bg_container })
-  hl("NoiceMini", { fg = c.fg_muted, bg = c.bg_container })
-  hl("NoiceFormatProgressDone", { fg = c.primary, bg = c.bg_high, bold = true })
-  hl("NoiceFormatProgressTodo", { fg = c.border, bg = c.bg_container })
-  hl("NoiceLspProgressTitle", { fg = c.fg_muted })
-  hl("NoiceLspProgressClient", { fg = c.primary })
-  hl("NoiceVirtualText", { fg = c.fg_muted })
+  hi('TelescopeNormal',         { fg = '#e5e1e5',          bg = '#131316' })
+  hi('TelescopeBorder',         { fg = '#928f99',             bg = '#131316' })
+  hi('TelescopePromptNormal',   { fg = '#e5e1e5',          bg = '#131316' })
+  hi('TelescopePromptBorder',   { fg = '#928f99',             bg = '#131316' })
+  hi('TelescopePromptPrefix',   { fg = '#c4c2ef',             bg = '#131316' })
+  hi('TelescopePromptCounter',  { fg = '#c8c5cf',  bg = '#131316' })
+  hi('TelescopePromptTitle',    { fg = '#131316',             bg = '#c4c2ef' })
+  hi('TelescopePreviewTitle',   { fg = '#131316',             bg = '#c7c4d8' })
+  hi('TelescopeResultsTitle',   { fg = '#131316',             bg = '#ecb8d6' })
+  hi('TelescopeSelection',      { fg = '#e5e1e5',          bg = '#2a292c' })
+  hi('TelescopeSelectionCaret', { fg = '#c4c2ef',             bg = '#2a292c' })
+  hi('TelescopeMatching',       { fg = '#c4c2ef',             bold = true })
 end
 
--- Register a signal handler for SIGUSR1 (matugen updates)
-local signal = vim.uv.new_signal()
-signal:start(
-  "sigusr1",
-  vim.schedule_wrap(function()
-    package.loaded["matugen"] = nil
-    require("matugen").setup()
-  end)
-)
+ -- Register a signal handler for SIGUSR1 (matugen updates)
+ local signal = vim.uv.new_signal()
+ signal:start(
+   'sigusr1',
+   vim.schedule_wrap(function()
+     package.loaded['matugen'] = nil
+     require('matugen').setup()
+   end)
+ )
 
-return M
+ return M

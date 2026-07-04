@@ -15,5 +15,3 @@ exec-once =/home/sh4dow/.config/mango/autostart.sh
 
 
 #source=~/.config/mango/noctalia.conf
-
-source=./dms/cursor.conf

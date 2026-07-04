@@ -114,8 +114,8 @@ return {
           scores = false, -- show scores in the list
         },
         layout = {
-          preset = "ivy",
-          -- preset = "vscode",
+          --  preset = "ivy",
+          preset = "vscode",
           -- preset = "left",
           -- preset = "right",
           -- preset = "dropdown",

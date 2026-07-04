@@ -20,7 +20,7 @@
     "theme": {
         "mode": "dark",
         "light": "One Light",
-        "dark": "Noctalia Dark Transparent",
+        "dark": "DankShell Dark Transparent",
     },
     "theme_overrides": {
         "Noctalia Dark": {

@@ -10,4 +10,5 @@ cursor-style-blink = true
 quit-after-last-window-closed = true
 confirm-close-surface = false
 scrollbar=never
-theme = noctalia
+#theme = noctalia
+theme = dankcolors

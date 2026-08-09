@@ -20,7 +20,7 @@
     "theme": {
         "mode": "dark",
         "light": "One Light",
-        "dark": "DankShell Dark Transparent",
+        "dark": "Aura Dark (Soft Text)",
     },
     "theme_overrides": {
         "Noctalia Dark": {
@@ -35,7 +35,6 @@
         },
     },
     "title_bar": {
-        "show_branch_icon": false,
         "show_menus": false,
         "show_user_picture": false,
         "show_sign_in": false,

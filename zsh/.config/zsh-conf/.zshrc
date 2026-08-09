@@ -148,5 +148,8 @@ if [[ "${ZSH_BENCHMARK:l}" == "yes" ]]; then
 fi
 
 add-zsh-hook -d chpwd _10k_chpwd
-
+export PATH="/home/sh4dow/.cache/.bun/bin:$PATH"
 export MPD_HOST=/home/sh4dow/.config/mpd/socket
+export PATH="$HOME/.local/bin:$PATH"
+
+export PATH=$PATH:/home/sh4dow/.spicetify

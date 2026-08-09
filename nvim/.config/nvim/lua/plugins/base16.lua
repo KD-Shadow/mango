@@ -1,12 +1,15 @@
 return {
   {
     "RRethy/base16-nvim",
+    enabled = false,
     config = function()
       require("matugen").setup()
     end,
   },
+
   {
     "AvengeMedia/base46",
+    enabled = false,
     lazy = false,
     priority = 1000,
     config = function()

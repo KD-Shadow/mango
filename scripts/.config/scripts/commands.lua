@@ -2,7 +2,7 @@
 
 local commands = {
 	{ name = "file manager", exec = "yazi" },
-	{ name = "typing test", exec = "/home/$USER/go/bin/gotype" },
+	{ name = "typing test", exec = "/home/$USER/go/bin/boomtypr" },
 	{ name = "cava", exec = "cava" },
 	{ name = "tui music", exec = "rmpc" },
 	{ name = "yt downloader", exec = "xytz" },

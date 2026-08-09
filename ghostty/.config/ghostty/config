@@ -11,4 +11,4 @@ quit-after-last-window-closed = true
 confirm-close-surface = false
 scrollbar=never
 #theme = noctalia
-theme = dankcolors
+theme = noctalia

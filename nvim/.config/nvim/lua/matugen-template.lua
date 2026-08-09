@@ -2,6 +2,7 @@ local M = {}
 
 function M.setup()
   require("base16-colorscheme").setup({
+
     -- Background tones
     base00 = "{{colors.surface.default.hex}}", -- Default Background
     base01 = "{{colors.surface_container.default.hex}}", -- Lighter Background (status bars)
@@ -124,6 +125,27 @@ function M.setup()
   hl("NoiceLspProgressTitle", { fg = c.fg_muted })
   hl("NoiceLspProgressClient", { fg = c.primary })
   hl("NoiceVirtualText", { fg = c.fg_muted })
+  hl("Comment", { fg = c.fg_muted, italic = true })
+  hl("@comment", { fg = c.fg_muted, italic = true })
+
+  hl("Keyword", { fg = c.secondary, bold = true })
+  hl("@keyword", { fg = c.secondary, bold = true })
+
+  hl("Function", { fg = c.primary, bold = true })
+  hl("@function", { fg = c.primary, bold = true })
+
+  hl("Type", { fg = c.secondary, italic = true })
+  hl("@type", { fg = c.secondary, italic = true })
+
+  hl("String", { fg = c.primary, italic = true })
+  hl("@string", { fg = c.primary, italic = true })
+
+  hl("@parameter", { italic = true })
+  hl("@constant", { bold = true })
+  hl("@namespace", { bold = true })
+  hl("@variable.builtin", { italic = true })
+  hl("@field", { fg = c.tertiary })
+  hl("@property", { fg = c.tertiary })
 end
 
 -- Register a signal handler for SIGUSR1 (matugen updates)

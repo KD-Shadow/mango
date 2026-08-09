@@ -26,4 +26,10 @@ return {
       })
     end,
   },
+  {
+    "malick-tammal/inscom.nvim",
+    opts = {
+      style = "dashed",
+    },
+  },
 }

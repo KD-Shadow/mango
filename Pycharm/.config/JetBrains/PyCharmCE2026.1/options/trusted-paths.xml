@@ -1,0 +1,11 @@
+<application>
+  <component name="Trusted.Paths">
+    <option name="TRUSTED_PROJECT_PATHS">
+      <map>
+        <entry key="$USER_HOME$/Documents/Backend/Authentication" value="true" />
+        <entry key="$USER_HOME$/Documents/Backend/Backend-Projects/Tasky" value="true" />
+        <entry key="$USER_HOME$/PyCharmMiscProject" value="true" />
+      </map>
+    </option>
+  </component>
+</application>

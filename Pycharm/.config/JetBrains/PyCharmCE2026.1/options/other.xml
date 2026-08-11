@@ -1,0 +1,122 @@
+<application>
+  <component name="AppInspectionProfilesVisibleTreeState">
+    <entry key="Default">
+      <profile-state>
+        <selected-state>
+          <State>
+            <id>User defined</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="FileEditorProviderManager">{}</component>
+  <component name="LangManager">
+    <option name="languageName" value="Python" />
+  </component>
+  <component name="NotRoamableUiSettings">
+    <option name="fontFace" value="JetBrainsMono Nerd Font Mono" />
+    <option name="fontSize" value="12.0" />
+    <option name="presentationModeIdeScale" value="1.75" />
+  </component>
+  <component name="PropertyService"><![CDATA[{
+  "keyToString": {
+    "AFTER.DISTRACTION.MODE.ARE_GUTTER_ICONS_SHOWN": "false",
+    "AFTER.DISTRACTION.MODE.ARE_LINE_NUMBERS_SHOWN": "false",
+    "AFTER.DISTRACTION.MODE.EDITOR_TAB_PLACEMENT": "0",
+    "AFTER.DISTRACTION.MODE.HIDE_TOOL_STRIPES": "true",
+    "AFTER.DISTRACTION.MODE.IS_FOLDING_OUTLINE_SHOWN": "false",
+    "AFTER.DISTRACTION.MODE.IS_FOLDING_OUTLINE_SHOWN_ONLY_ON_HOVER": "false",
+    "AFTER.DISTRACTION.MODE.IS_INDENT_GUIDES_SHOWN": "false",
+    "AFTER.DISTRACTION.MODE.IS_RIGHT_MARGIN_SHOWN": "false",
+    "AFTER.DISTRACTION.MODE.IS_WHITESPACES_SHOWN": "false",
+    "AFTER.DISTRACTION.MODE.SHOW_BREADCRUMBS": "false",
+    "AFTER.DISTRACTION.MODE.SHOW_MAIN_TOOLBAR": "false",
+    "AFTER.DISTRACTION.MODE.SHOW_METHOD_SEPARATORS": "false",
+    "AFTER.DISTRACTION.MODE.SHOW_NAVIGATION_BAR": "false",
+    "AFTER.DISTRACTION.MODE.SHOW_NEW_MAIN_TOOLBAR": "false",
+    "AFTER.DISTRACTION.MODE.SHOW_STATUS_BAR": "false",
+    "BEFORE.DISTRACTION.MODE.ARE_GUTTER_ICONS_SHOWN": "true",
+    "BEFORE.DISTRACTION.MODE.ARE_LINE_NUMBERS_SHOWN": "true",
+    "BEFORE.DISTRACTION.MODE.EDITOR_TAB_PLACEMENT": "1",
+    "BEFORE.DISTRACTION.MODE.HIDE_TOOL_STRIPES": "true",
+    "BEFORE.DISTRACTION.MODE.IS_FOLDING_OUTLINE_SHOWN": "true",
+    "BEFORE.DISTRACTION.MODE.IS_FOLDING_OUTLINE_SHOWN_ONLY_ON_HOVER": "true",
+    "BEFORE.DISTRACTION.MODE.IS_INDENT_GUIDES_SHOWN": "true",
+    "BEFORE.DISTRACTION.MODE.IS_RIGHT_MARGIN_SHOWN": "true",
+    "BEFORE.DISTRACTION.MODE.IS_WHITESPACES_SHOWN": "false",
+    "BEFORE.DISTRACTION.MODE.SHOW_BREADCRUMBS": "false",
+    "BEFORE.DISTRACTION.MODE.SHOW_MAIN_TOOLBAR": "false",
+    "BEFORE.DISTRACTION.MODE.SHOW_METHOD_SEPARATORS": "false",
+    "BEFORE.DISTRACTION.MODE.SHOW_NAVIGATION_BAR": "true",
+    "BEFORE.DISTRACTION.MODE.SHOW_NEW_MAIN_TOOLBAR": "false",
+    "BEFORE.DISTRACTION.MODE.SHOW_STATUS_BAR": "false",
+    "DISTRACTION.MODE.ENTER.VALUE": "false",
+    "FileTemplates.SelectedTemplate": "Generic Empty File",
+    "InstalledPluginsSearchHistory": "string\nstri\nstr\ns",
+    "LAST_CALCULATED_COLOR_INDEX_KEY": "3",
+    "MarketplacePluginsSearchHistory": "material theme\nmateria\nmaet\nmae\nma",
+    "PyCharm.InitialConfiguration": "true",
+    "PyCharm.InitialConfiguration.V2": "true",
+    "PyCharm.InitialConfiguration.V3": "true",
+    "PyCharm.InitialConfiguration.V4": "true",
+    "PyCharm.InitialConfiguration.V5": "true",
+    "PyCharm.InitialConfiguration.V6": "true",
+    "PyCharm.InitialConfiguration.V7": "true",
+    "PyCharm.InitialConfiguration.V8": "true",
+    "RunOnceActivity.TerminalFontSettingsService.fixStoredNonMonospacedFonts": "true",
+    "RunOnceActivity.TerminalOptionsProvider.TerminalEngineMigration.2026.1": "true",
+    "RunOnceActivity.TerminalOptionsProvider.appTitleMigration.2026.1.1": "true",
+    "RunOnceActivity.VFSInitializationConditionsToFusReporter": "true",
+    "RunOnceActivity.reset.auto.reparse.settings.to.default": "true",
+    "RunOnceActivity.terminal.escape.behavior.change.notification": "true",
+    "RunOnceActivity.zielu.gittoolbox.worktree.promo.1": "true",
+    "SettingsSearchHistory": "formatter\nfile icon",
+    "WAYLAND_NOTIFICATION_ALREADY_SHOWN": "true",
+    "ask.about.ctrl.y.shortcut.v2": "true",
+    "enter_selection_count": "5",
+    "experimental.ui.first.switch": "true",
+    "experimental.ui.on.first.startup": "true",
+    "experimental.ui.used.version": "261.26222.68",
+    "experimentalFeature.terminal.shell.command.handling": "false",
+    "fileTypeChangedCounter": "40",
+    "fontSizeToResetConsole": "13.0",
+    "fontSizeToResetEditor": "12.0",
+    "git.working.trees.number.of.projects.with.git": "4",
+    "got.it.tooltip.NewFeaturesWidget": "1",
+    "got.it.tooltip.Plugins Auto-Update": "1",
+    "ide.islands.ab3": "true",
+    "ide.islands.new.darcula": "true",
+    "last_opened_file_path": "/home/sh4dow/Pictures/wallpapers/anime-girl-with-glasses-red-eyes-4k-wallpaper-uhdpaper.com-276@5@b.jpg",
+    "migrated.non.roamable.values.from.general.settings": "true",
+    "mt.NUMBER_OF_LAUNCHES": "1",
+    "org.intellij.images.editor.actions.BackgroundImageDialog#recent": "/home/sh4dow/Pictures/wallpapers/36.png\n/home/sh4dow/Pictures/wallpapers/anime-girl-with-glasses-red-eyes-4k-wallpaper-uhdpaper.com-276@5@b.jpg",
+    "previousColorScheme": "_@user_Atom One Dark (Material)",
+    "promo.ignore.suggested.ide": "true",
+    "pycharm.previous.version.was.community": "true",
+    "pycharm.welcome.overridden": "true",
+    "registry.to.advanced.settings.migration.build": "PC-261.26222.68",
+    "toolwindow.showToolWindowsNames.ts": "2026-08-11T18:16:24.932164184",
+    "whats.new.last.shown.version": "2026-1.4-26222-d5201bd8dc28cede397d02ce7d0e281d798a3554"
+  },
+  "keyToStringList": {
+    "file.chooser.recent.files": [
+      "/home/sh4dow/Pictures/wallpapers/anime-girl-with-glasses-red-eyes-4k-wallpaper-uhdpaper.com-276@5@b.jpg",
+      "/home/sh4dow/Pictures/wallpapers/36.png",
+      "/home/sh4dow/Documents/Backend/Backend-Projects/Tasky",
+      "/home/sh4dow/Documents/Backend/Authentication"
+    ],
+    "fileTypeDetectors": [
+      "com.intellij.ide.scratch.ScratchFileServiceImpl$Detector",
+      "org.jetbrains.plugins.textmate.TextMateFileType$TextMateFileDetector"
+    ]
+  }
+}]]></component>
+  <component name="ReworkedTerminalUsage"><![CDATA[{
+  "enterKeyPressedTimes": 17,
+  "firstIdeSessionMoment": {
+    "type": "org.jetbrains.plugins.terminal.TerminalFirstIdeSessionMoment.BeforeTrackingStarted"
+  }
+}]]></component>
+  <component name="TerminalAgentsState">{}</component>
+</application>

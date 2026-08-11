@@ -13,3 +13,13 @@ yazi/.config/yazi/theme.toml
 zathura/.config/zathura/zathurarc
 zed/.config/zed/settings.json
 zed/.config/zed/themes/matugen.json
+# PyCharm generated/internal files
+Pycharm/.config/JetBrains/PyCharmCE2026.1/event-log-metadata/
+Pycharm/.config/JetBrains/PyCharmCE2026.1/ssl/
+Pycharm/.config/JetBrains/PyCharmCE2026.1/tasks/
+Pycharm/.config/JetBrains/PyCharmCE2026.1/workspace/
+
+Pycharm/.config/JetBrains/PyCharmCE2026.1/app-internal-state.db
+Pycharm/.config/JetBrains/PyCharmCE2026.1/updatedBrokenPlugins.db
+Pycharm/.config/JetBrains/PyCharmCE2026.1/bundled_plugins.txt
+Pycharm/.config/JetBrains/PyCharmCE2026.1/early-access-registry.txt

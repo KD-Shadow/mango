@@ -1,8 +1,0 @@
-<application>
-  <component name="LafManager">
-    <laf themeId="ONE_DARK" />
-    <lafs-to-previous-schemes>
-      <laf-to-scheme laf="FOREST" scheme="_@user_GitHub Dark (Material)" />
-    </lafs-to-previous-schemes>
-  </component>
-</application>

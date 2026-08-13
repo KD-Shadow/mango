@@ -14,19 +14,6 @@ return {
     vim.keymap.set("n", "<leader>rn", ":IncRename "),
   },
   {
-    "atiladefreitas/dooing",
-    lazy = true,
-    enabled = false,
-    config = function()
-      require("dooing").setup({
-        window = {
-          border = "rounded",
-          position = "center",
-        },
-      })
-    end,
-  },
-  {
     "malick-tammal/inscom.nvim",
     opts = {
       style = "dashed",

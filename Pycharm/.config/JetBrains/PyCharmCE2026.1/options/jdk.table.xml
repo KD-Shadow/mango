@@ -1,0 +1,56 @@
+<application>
+  <component name="ProjectJdkTable">
+    <jdk version="2">
+      <name value="Python 3.14 (PyCharmMiscProject)" />
+      <type value="Python SDK" />
+      <version value="Python 3.14.6" />
+      <homePath value="$USER_HOME$/PyCharmMiscProject/.venv/bin/python" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root url="file:///usr/lib/python3.14" type="simple" />
+            <root url="file:///usr/lib/python3.14/lib-dynload" type="simple" />
+            <root url="file://$USER_HOME$/PyCharmMiscProject/.venv/lib/python3.14/site-packages" type="simple" />
+            <root url="file://$USER_HOME$/.cache/JetBrains/PyCharmCE2026.1/python_stubs/-263070883" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/plugins/python-ce/helpers/typeshed/stdlib" type="simple" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional SDK_UUID="429af780-0f9c-4b69-9454-d2da2d20edd8">
+        <setting name="FLAVOR_ID" value="VirtualEnvSdkFlavor" />
+        <setting name="FLAVOR_DATA" value="{}" />
+      </additional>
+    </jdk>
+    <jdk version="2">
+      <name value="uv (Tasky)" />
+      <type value="Python SDK" />
+      <version value="Python 3.14.6" />
+      <homePath value="$USER_HOME$/Documents/Backend/Backend-Projects/Tasky/.venv/bin/python" />
+      <roots>
+        <classPath>
+          <root type="composite">
+            <root url="file:///usr/lib/python3.14" type="simple" />
+            <root url="file:///usr/lib/python3.14/lib-dynload" type="simple" />
+            <root url="file://$USER_HOME$/Documents/Backend/Backend-Projects/Tasky/.venv/lib/python3.14/site-packages" type="simple" />
+            <root url="file://$USER_HOME$/.cache/JetBrains/PyCharmCE2026.1/python_stubs/-968762510" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/plugins/python-ce/helpers/typeshed/stdlib" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/plugins/python-ce/helpers/typeshed/stubs/cffi" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/plugins/python-ce/helpers/typeshed/stubs/greenlet" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/plugins/python-ce/helpers/typeshed/stubs/requests" type="simple" />
+            <root url="file://$APPLICATION_HOME_DIR$/plugins/python-ce/helpers/typeshed/stubs/SQLAlchemy" type="simple" />
+          </root>
+        </classPath>
+        <sourcePath>
+          <root type="composite" />
+        </sourcePath>
+      </roots>
+      <additional ASSOCIATED_PROJECT_PATH="$USER_HOME$/Documents/Backend/Backend-Projects/Tasky" SDK_UUID="9cac51b5-dead-4fc3-96f2-b6768d66ead1" IS_UV="true" UV_WORKING_DIR="$USER_HOME$/Documents/Backend/Backend-Projects/Tasky" UV_VENV_PATH="$USER_HOME$/Documents/Backend/Backend-Projects/Tasky/.venv" UV_TOOL_PATH="/usr/bin/uv">
+        <setting name="FLAVOR_ID" value="UvSdkFlavor" />
+        <setting name="FLAVOR_DATA" value="{&quot;uvWorkingDirectory&quot;:&quot;/home/sh4dow/Documents/Backend/Backend-Projects/Tasky&quot;,&quot;usePip&quot;:false,&quot;venvPath&quot;:&quot;/home/sh4dow/Documents/Backend/Backend-Projects/Tasky/.venv&quot;,&quot;uvPath&quot;:&quot;/usr/bin/uv&quot;}" />
+      </additional>
+    </jdk>
+  </component>
+</application>

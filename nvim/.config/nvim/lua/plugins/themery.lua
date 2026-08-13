@@ -5,6 +5,7 @@ return {
     require("themery").setup({
       themes = {
         "aether",
+        "everforest",
         "catppuccin-mocha",
         "nord",
         "kanagawa",

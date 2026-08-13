@@ -20,7 +20,7 @@
     "theme": {
         "mode": "dark",
         "light": "One Light",
-        "dark": "Aura Dark (Soft Text)",
+        "dark": "Everforest Dark Medium (blur)",
     },
     "theme_overrides": {
         "Noctalia Dark": {

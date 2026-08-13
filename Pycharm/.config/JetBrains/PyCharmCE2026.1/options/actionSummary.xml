@@ -1,0 +1,214 @@
+<application>
+  <component name="ActionsLocalSummary">
+    <e n="ActivateBookmarksToolWindow">
+      <i c="1" l="1786453419878" />
+    </e>
+    <e n="ActivateProjectToolWindow">
+      <i c="4" l="1786453420999" />
+    </e>
+    <e n="AutoIndentLines">
+      <i c="3" l="1786453195393" />
+    </e>
+    <e n="CloseAllEditors">
+      <i c="1" l="1786451443604" />
+    </e>
+    <e n="ConfigureEditorTabs">
+      <i c="1" l="1786451645871" />
+    </e>
+    <e n="EditorBackSpace">
+      <i c="304" l="1786453700274" />
+    </e>
+    <e n="EditorChooseLookupItem">
+      <i c="61" l="1786453699845" />
+    </e>
+    <e n="EditorCopy">
+      <i c="1" l="1786453432056" />
+    </e>
+    <e n="EditorDelete">
+      <i c="1" l="1786453639192" />
+    </e>
+    <e n="EditorDown">
+      <i c="24" l="1786453628340" />
+    </e>
+    <e n="EditorEnter">
+      <i c="80" l="1786453677750" />
+    </e>
+    <e n="EditorTab">
+      <i c="3" l="1786453199191" />
+    </e>
+    <e n="EditorTabsEntryPoint">
+      <i c="4" l="1786451643253" />
+    </e>
+    <e n="EditorUp">
+      <i c="7" l="1786453628691" />
+    </e>
+    <e n="ExpressionTypeInfo">
+      <i c="1" l="1786451730017" />
+    </e>
+    <e n="ExternalSystem.HideProjectRefreshAction">
+      <i c="1" l="1786287085691" />
+    </e>
+    <e n="ExternalSystem.ProjectRefreshAction">
+      <i c="1" l="1786449228020" />
+    </e>
+    <e n="Generate">
+      <i c="2" l="1786453440937" />
+    </e>
+    <e n="Git.Log.Branches.Settings">
+      <i c="1" l="1786454064537" />
+    </e>
+    <e n="GotoClass">
+      <i c="1" l="1786449272536" />
+    </e>
+    <e n="Images.SetBackgroundImage">
+      <i c="3" l="1786451845568" />
+    </e>
+    <e n="MTNewFile">
+      <i c="1" l="1786453453779" />
+    </e>
+    <e n="MoreRunToolbarActions">
+      <i c="1" l="1786287573405" />
+    </e>
+    <e n="NavBarLocationHide">
+      <i c="3" l="1786451416675" />
+    </e>
+    <e n="NavBarLocationTop">
+      <i c="2" l="1786451409459" />
+    </e>
+    <e n="NewElement">
+      <i c="1" l="1786449284422" />
+    </e>
+    <e n="NewElementSamePlace">
+      <i c="4" l="1786453550993" />
+    </e>
+    <e n="NewFile">
+      <i c="1" l="1786449286217" />
+    </e>
+    <e n="NewPythonFile">
+      <i c="3" l="1786453551698" />
+    </e>
+    <e n="OpenFile">
+      <i c="1" l="1786287800087" />
+    </e>
+    <e n="QuickImplementations">
+      <i c="1" l="1786287729096" />
+    </e>
+    <e n="RecentFiles">
+      <i c="1" l="1786451430335" />
+    </e>
+    <e n="RedesignedRunConfigurationSelector">
+      <i c="1" l="1786449528641" />
+    </e>
+    <e n="SaveAll">
+      <i c="4" l="1786453404805" />
+    </e>
+    <e n="SelectInProjectView">
+      <i c="2" l="1786453548843" />
+    </e>
+    <e n="SettingsEntryPoint">
+      <i c="1" l="1786287488724" />
+    </e>
+    <e n="ShowNavBar">
+      <i c="1" l="1786451458939" />
+    </e>
+    <e n="ShowSettings">
+      <i c="14" l="1786453348621" />
+    </e>
+    <e n="TabList">
+      <i c="1" l="1786451437937" />
+    </e>
+    <e n="ToggleCompactMode">
+      <i c="1" l="1786287586206" />
+    </e>
+    <e n="ToggleDistractionFreeMode">
+      <i c="2" l="1786451284589" />
+    </e>
+    <e n="ToolWindowShowNamesAction">
+      <i c="2" l="1786451484930" />
+    </e>
+    <e n="ViewStatusBar">
+      <i c="1" l="1786287456069" />
+    </e>
+    <e n="ViewToolBar">
+      <i c="3" l="1786451384826" />
+    </e>
+    <e n="ViewToolButtons">
+      <i c="4" l="1786451471754" />
+    </e>
+    <e n="WelcomeScreen.OpenDirectoryProject">
+      <i c="1" l="1786286965168" />
+    </e>
+    <e n="com.intellij.application.options.schemes.AbstractSchemesPanel$ShowSchemesActionsListAction">
+      <i c="1" l="1786451757064" />
+    </e>
+    <e n="com.intellij.ide.actions.ChangeMainMenuModeAction">
+      <i c="2" l="1786451372243" />
+    </e>
+    <e n="com.intellij.ide.actions.ToolWindowMoveAction">
+      <i c="11" l="1786451638406" />
+    </e>
+    <e n="com.intellij.notification.BrowseNotificationAction">
+      <i c="1" l="1786454243973" />
+    </e>
+    <e n="com.intellij.notification.NotificationAction$Simple">
+      <i c="7" l="1786453715148" />
+    </e>
+    <e n="com.intellij.openapi.actionSystem.AnActionWrapper">
+      <i c="543" l="1786454202147" />
+    </e>
+    <e n="com.intellij.openapi.editor.impl.EditorMarkupModelImpl$TrafficLightAction">
+      <i c="3" l="1786451271607" />
+    </e>
+    <e n="com.intellij.openapi.editor.impl.EditorMarkupModelImpl$createAction$result$1">
+      <i c="1" l="1786451659326" />
+    </e>
+    <e n="com.intellij.openapi.fileEditor.impl.tabActions.CloseTab">
+      <i c="7" l="1786451427923" />
+    </e>
+    <e n="com.intellij.openapi.project.DumbAwareAction$SimpleDumbAwareAction">
+      <i c="2" l="1786449278574" />
+    </e>
+    <e n="com.intellij.openapi.ui.impl.DialogWrapperPeerImpl$AnCancelAction">
+      <i c="1" l="1786453719797" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.HideAction">
+      <i c="1" l="1786453426198" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.SquareAnActionButton">
+      <i c="23" l="1786454239595" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.ToolWindowImpl$ToggleContentUiTypeAction">
+      <i c="2" l="1786454225237" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.customFrameDecorations.header.toolbar.MainMenuButton$ShowMenuAction">
+      <i c="33" l="1786453346956" />
+    </e>
+    <e n="com.intellij.terminal.frontend.action.SendShortcutToTerminalAction">
+      <i c="22" l="1786454171957" />
+    </e>
+    <e n="com.intellij.toolWindow.MoreSquareStripeButton$createPopupGroup$1">
+      <i c="1" l="1786451599412" />
+    </e>
+    <e n="com.intellij.toolWindow.ShowMoreToolWindowsAction">
+      <i c="3" l="1786451618340" />
+    </e>
+    <e n="com.intellij.toolWindow.ToolWindowHeader$HideAction">
+      <i c="11" l="1786454180781" />
+    </e>
+    <e n="com.intellij.vcs.log.ui.filter.MultipleValueFilterPopupComponent$PredefinedValueAction">
+      <i c="1" l="1786454051981" />
+    </e>
+    <e n="com.intellij.vcs.log.ui.filter.MultipleValueFilterPopupComponent$SelectMultipleValuesAction">
+      <i c="1" l="1786454055579" />
+    </e>
+    <e n="com.intellij.xdebugger.impl.breakpoints.RemoveBreakpointGutterIconAction">
+      <i c="1" l="1786449491188" />
+    </e>
+    <e n="com.jetbrains.python.sdk.AddLocalInterpreterAction">
+      <i c="1" l="1786287736588" />
+    </e>
+    <e n="editRunConfigurations">
+      <i c="1" l="1786449529684" />
+    </e>
+  </component>
+</application>

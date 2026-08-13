@@ -13,7 +13,11 @@ return {
     priority = 1000,
   },
   --  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-
+  {
+    "sainnhe/everforest",
+    lazy = false,
+    priority = 1000,
+  },
   {
     "olimorris/onedarkpro.nvim",
     priority = 1000,

@@ -1,0 +1,9 @@
+<application>
+  <component name="AtomFileIconsConfig">
+    <option name="customIconSize" value="12" />
+    <option name="customLineHeight" value="16" />
+    <option name="fixActionButtonsColor" value="true" />
+    <option name="hasCustomIconSize" value="true" />
+    <option name="hasCustomLineHeight" value="true" />
+  </component>
+</application>

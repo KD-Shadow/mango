@@ -1,5 +1,0 @@
-# .zshenv - Zsh environment configuration
-# This file is sourced by all instances of zsh.
-# It sets the ZDOTDIR variable to point to your custom configuration directory.
-
-export ZDOTDIR="$HOME/.config/zsh-conf"

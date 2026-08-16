@@ -1,0 +1,19 @@
+[theme.templates]
+enable_builtin_templates   = true
+enable_community_templates = true
+builtin_ids                = []
+community_ids              = []
+
+
+
+[theme.templates.rofi]
+input_path = '/home/sh4dow/.config/noctalia/templates/rofi-colors.rasi'
+output_path = '/home/sh4dow/.config/rofi/colors.rasi'
+
+[theme.templates.rmpc]
+input_path = '/home/sh4dow/.config/noctalia/templates/rmpc.ron'
+output_path = '~/.config/rmpc/themes/matugen.ron'
+
+[theme.templates.litexl]
+input_path = '/home/sh4dow/.config/noctalia/templates/lite-xl.lua'
+output_path = '~/.config/lite-xl/colors/matugen.lua'

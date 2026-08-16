@@ -1,4 +1,33 @@
 {
+    "active_pane_modifiers": {
+        "border_size": 0.0
+    },
+    "window_decorations": "client",
+    "use_system_window_tabs": false,
+    "proxy": "",
+    "completions": {
+        "lsp": true,
+        "lsp_fetch_timeout_ms": 0
+    },
+    "colorize_brackets": false,
+    "code_lens": "on",
+    "lsp_document_colors": "inlay",
+    "inlay_hints": {
+        "scroll_debounce_ms": 50,
+        "edit_debounce_ms": 700,
+        "show_background": false,
+        "show_other_hints": true,
+        "show_value_hints": true,
+        "enabled": true
+    },
+    "vim": {
+        "use_smartcase_find": true,
+        "toggle_relative_line_numbers": true
+    },
+    "minimap": {
+        "show": "never"
+    },
+    "buffer_font_weight": 400.0,
     "collaboration_panel": {
         "dock": "left"
     },
@@ -10,17 +39,17 @@
     "git_panel": {
         "dock": "left"
     },
-    "disable_ai": false,
+    "disable_ai": true,
     "relative_line_numbers": "enabled",
     "icon_theme": {
-        "mode": "light",
+        "mode": "dark",
         "light": "Symbols Icon Theme",
         "dark": "Symbols Icon Theme",
     },
     "theme": {
         "mode": "dark",
         "light": "One Light",
-        "dark": "Everforest Dark Medium (blur)",
+        "dark": "Aura Dark (Soft Text)",
     },
     "theme_overrides": {
         "Noctalia Dark": {
@@ -35,18 +64,21 @@
         },
     },
     "title_bar": {
+        "button_layout": "platform_default",
+        "show_branch_status_icon": true,
         "show_menus": false,
-        "show_user_picture": false,
-        "show_sign_in": false,
+        "show_user_picture": true,
+        "show_sign_in": true,
         "show_onboarding_banner": false,
-        "show_project_items": false,
-        "show_branch_name": false,
-        "show_user_menu": false,
+        "show_project_items": true,
+        "show_branch_name": true,
+        "show_user_menu": true,
     },
     "tab_bar": {
         "show": false,
     },
     "toolbar": {
+        "selections_menu": true,
         "agent_review": false,
         "breadcrumbs": false,
         "quick_actions": false,
@@ -55,12 +87,21 @@
         "experimental.show": false,
     },
     "project_panel": {
+        "sort_order": "default",
+        "hide_hidden": false,
+        "git_status_indicator": false,
+        "diagnostic_badges": false,
+        "auto_reveal_entries": true,
+        "folder_icons": true,
+        "file_icons": true,
+        "entry_spacing": "comfortable",
+        "hide_gitignore": false,
         "dock": "right",
-        "default_width": 200,
+        "default_width": 200.0,
         "hide_root": true,
         "auto_fold_dirs": false,
         "starts_open": false,
-        "git_status": false,
+        "git_status": true,
         "sticky_scroll": false,
         "scrollbar": {
             "show": "never",
@@ -70,6 +111,7 @@
         },
     },
     "outline_panel": {
+        "file_icons": true,
         "dock": "left",
         "default_width": 300,
         "indent_guides": {
@@ -80,6 +122,7 @@
         "modal_max_width": "large",
     },
     "scrollbar": {
+        "cursors": true,
         "show": "never",
     },
     "gutter": {
@@ -88,6 +131,9 @@
         "runnables": false,
     },
     "indent_guides": {
+        "coloring": "indent_aware",
+        "active_line_width": 1,
+        "line_width": 0,
         "enabled": false,
     },
     "ui_font_family": "JetBrainsMono Nerd Font",
@@ -137,7 +183,10 @@
     "git": {
         "git_gutter": "hide",
         "inline_blame": {
-            "enabled": false,
+            "show_commit_summary": true,
+            "padding": 4,
+            "location": "inline",
+            "enabled": true,
         },
     },
     "centered_layout": {

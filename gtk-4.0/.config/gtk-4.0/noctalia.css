@@ -4,45 +4,45 @@
 * stylelint-disable at-rule-no-unknown
 */
 
-@define-color accent_color #a7c080;
-@define-color accent_bg_color #a7c080;
-@define-color accent_fg_color #161616;
+@define-color accent_color #8b2e2e;
+@define-color accent_bg_color #8b2e2e;
+@define-color accent_fg_color #1c1c28;
 
-@define-color destructive_bg_color #e67e80;
-@define-color destructive_fg_color #161616;
+@define-color destructive_bg_color #c25b5b;
+@define-color destructive_fg_color #0a0a12;
 
-@define-color error_bg_color #e67e80;
-@define-color error_fg_color #161616;
+@define-color error_bg_color #c25b5b;
+@define-color error_fg_color #0a0a12;
 
-@define-color window_bg_color #161616;
-@define-color window_fg_color #d3c6aa;
+@define-color window_bg_color #0a0a12;
+@define-color window_fg_color #e4ded2;
 
-@define-color view_bg_color #161616;
-@define-color view_fg_color #d3c6aa;
+@define-color view_bg_color #0a0a12;
+@define-color view_fg_color #e4ded2;
 
-@define-color headerbar_bg_color #161616;
-@define-color headerbar_fg_color #d3c6aa;
+@define-color headerbar_bg_color #0a0a12;
+@define-color headerbar_fg_color #e4ded2;
 @define-color headerbar_backdrop_color @window_bg_color;
 
-@define-color popover_bg_color #202020;
-@define-color popover_fg_color #d3c6aa;
+@define-color popover_bg_color #14141e;
+@define-color popover_fg_color #e4ded2;
 
-@define-color card_bg_color #202020;
-@define-color card_fg_color #d3c6aa;
+@define-color card_bg_color #14141e;
+@define-color card_fg_color #e4ded2;
 
-@define-color dialog_bg_color #161616;
-@define-color dialog_fg_color #d3c6aa;
+@define-color dialog_bg_color #0a0a12;
+@define-color dialog_fg_color #e4ded2;
 
-@define-color overview_bg_color #202020;
-@define-color overview_fg_color #d3c6aa;
+@define-color overview_bg_color #14141e;
+@define-color overview_fg_color #e4ded2;
 
-@define-color sidebar_bg_color #202020;
-@define-color sidebar_fg_color #d3c6aa;
+@define-color sidebar_bg_color #14141e;
+@define-color sidebar_fg_color #e4ded2;
 @define-color sidebar_backdrop_color @window_bg_color;
 @define-color sidebar_border_color @window_bg_color;
 
-@define-color secondary_sidebar_bg_color #161616;
-@define-color secondary_sidebar_fg_color #d3c6aa;
+@define-color secondary_sidebar_bg_color #0a0a12;
+@define-color secondary_sidebar_fg_color #e4ded2;
 
 /* Backdrop/unfocused states */
 @define-color theme_unfocused_fg_color @window_fg_color;
@@ -53,51 +53,51 @@
 @define-color theme_unfocused_selected_fg_color @accent_fg_color;
 
 :root {
-    --accent-color: #a7c080;
-    --accent-bg-color: #a7c080; 
-    --accent-fg-color: #161616;
+    --accent-color: #8b2e2e;
+    --accent-bg-color: #8b2e2e; 
+    --accent-fg-color: #1c1c28;
 
-    --destructive-bg-color: #e67e80;
-    --destructive-fg-color: #161616;
+    --destructive-bg-color: #c25b5b;
+    --destructive-fg-color: #0a0a12;
 
-    --error-bg-color: #e67e80;
-    --error-fg-color: #161616;
-    --error-color: #e67e80;
+    --error-bg-color: #c25b5b;
+    --error-fg-color: #0a0a12;
+    --error-color: #c25b5b;
 
-    --window-bg-color: #161616;
-    --window-fg-color: #d3c6aa;
+    --window-bg-color: #0a0a12;
+    --window-fg-color: #e4ded2;
 
-    --view-bg-color: #161616;
-    --view-fg-color: #d3c6aa;
+    --view-bg-color: #0a0a12;
+    --view-fg-color: #e4ded2;
 
-    --headerbar-bg-color: #161616;
-    --headerbar-fg-color: #d3c6aa;
+    --headerbar-bg-color: #0a0a12;
+    --headerbar-fg-color: #e4ded2;
     --headerbar-backdrop-color: @window_bg_color;
 
-    --popover-bg-color: #202020;
-    --popover-fg-color: #d3c6aa;
+    --popover-bg-color: #14141e;
+    --popover-fg-color: #e4ded2;
 
-    --card-bg-color: #202020;
-    --card-fg-color: #d3c6aa;
+    --card-bg-color: #14141e;
+    --card-fg-color: #e4ded2;
 
-    --dialog-bg-color: #161616;
-    --dialog-fg-color: #d3c6aa;
+    --dialog-bg-color: #0a0a12;
+    --dialog-fg-color: #e4ded2;
 
-    --overview-bg-color: #202020;
-    --overview-fg-color: #d3c6aa;
+    --overview-bg-color: #14141e;
+    --overview-fg-color: #e4ded2;
 
-    --sidebar-bg-color: #202020;
-    --sidebar-fg-color: #d3c6aa;
+    --sidebar-bg-color: #14141e;
+    --sidebar-fg-color: #e4ded2;
     --sidebar-backdrop-color: @window_bg_color;
     --sidebar-border-color: @window_bg_color;
 
-    --warning-bg-color: #25635a;
-    --warning-fg-color: #deedeb;
-    --warning-color: #7fbbb3;
+    --warning-bg-color: #3b1f3a;
+    --warning-fg-color: #eae1e9;
+    --warning-color: #9a7398;
 
-    --success-color: #dbbc7f;
-    --success-bg-color: #8f6718;
-    --success-fg-color: #f7f1e3;
+    --success-color: #8baa82;
+    --success-bg-color: #315128;
+    --success-fg-color: #e3eae1;
     
     --shade-color: rgba(0, 0, 0, 0.36);
 }

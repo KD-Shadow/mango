@@ -48,6 +48,7 @@ x-scheme-handler/https=helium.desktop
 x-scheme-handler/about=helium.desktop
 x-scheme-handler/unknown=helium.desktop
 x-scheme-handler/insomnia=insomnia.desktop
+x-scheme-handler/codex=chatgpt.desktop
 
 [Added Associations]
 text/plain=nvim.desktop;

@@ -471,3 +471,7 @@ alias r 'yay -R'
 alias s 'yay -Ss'
 alias cache 'yay -Sc'
 alias cleanup 'sudo pacman -Rns $(pacman -Qdtq)'
+alias fastfetch fetch
+
+#paths
+fish_add_path (go env GOPATH)/bin

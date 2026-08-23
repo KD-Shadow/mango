@@ -17,6 +17,7 @@ start = ["workspaces"]
 widget_spacing = 11
 
 [bar.default]
+center = ["clock", "mpvpaper"]
 end = ["media", "tray", "notifications", "network", "volume", "battery"]
 font_family = "JetBrainsMono NFM"
 margin_edge = 0
@@ -50,6 +51,15 @@ auto_hide = true
 reserve_space = false
 show_running = false
 
+[hot_corners.bottom_left]
+action = "window_switcher"
+
+[hot_corners.top_left]
+action = "launcher"
+
+[hot_corners.top_right]
+action = "control_center"
+
 [idle]
 behavior_order = ["lock", "screen-off", "lock-and-suspend"]
 
@@ -67,6 +77,9 @@ timeout = 900.0
 action = "screen_off"
 enabled = true
 timeout = 660.0
+
+[lockscreen]
+fingerprint = false
 
 [lockscreen_widgets]
 enabled = true
@@ -194,6 +207,10 @@ opacity = 1.0
 background_opacity = 0.69999998435378075
 layer = "overlay"
 offset_x = 17
+scale = 0.75
+
+[plugin_settings."noctalia/mpvpaper"]
+video_directory = "~/Videos"
 
 [plugin_settings."noctalia/wallhaven"]
 browser_open_near_click = true
@@ -202,10 +219,30 @@ download_dir = "/home/sh4dow/Pictures/wallpapers"
 [plugins]
 enabled = ["noctalia/wallhaven"]
 
+[[plugins.source]]
+auto_update = true
+kind = "git"
+location = "https://github.com/noctalia-dev/official-plugins"
+name = "official"
+
+[[plugins.source]]
+auto_update = true
+kind = "git"
+location = "https://github.com/noctalia-dev/community-plugins"
+name = "community"
+
+[[plugins.source]]
+enabled = false
+kind = "git"
+location = "https://github.com/noctalia-dev/community-plugins.git"
+name = "community-plugins"
+
 [shell]
 app_icon_colorize = true
+avatar_path = "/var/lib/AccountsService/icons/sh4dow"
 corner_radius_scale = 2.0
 font_family = "JetBrainsMono NFM"
+polkit_agent = true
 settings_show_advanced = true
 ui_scale = 0.90000000596046448
 
@@ -214,6 +251,9 @@ borders = false
 clipboard_placement = "attached"
 launcher_placement = "attached"
 polkit_placement = "attached"
+
+[shell.screen_corners]
+size = 1
 
 [templates.nvim-base16]
 input_path = "~/.config/nvim/lua/matugen-template.lua"
@@ -238,10 +278,12 @@ builtin_ids = [
   "qt",
 ]
 community_ids = [
+  "pywalfox",
   "libreoffice",
   "neovim",
   "vscode",
   "zed",
+  "steam",
   "rofi",
   "zathura",
   "bat",
@@ -249,10 +291,6 @@ community_ids = [
 ]
 enable_builtin_templates = true
 enable_community_templates = true
-
-[theme.templates.lite-xl]
-input_path = "/home/sh4dow/.config/noctalia/templates/lite-xl.lua"
-output_path = "~/.config/lite-xl/colors/matugen.lua"
 
 [theme.templates.litexl]
 input_path = "/home/sh4dow/.config/noctalia/templates/lite-xl.lua"
@@ -275,19 +313,22 @@ enabled = true
 interval_seconds = 300
 
 [wallpaper.default]
-path = "/home/sh4dow/Pictures/wallpapers/girl.jpg"
+path = "/home/sh4dow/Pictures/wallpapers/volkswagen-van-anime-girl-art-sky-scenery-4k-wallpaper-uhdpaper.com-681@1@k.jpg"
 
 [wallpaper.last]
-path = "/home/sh4dow/Pictures/wallpapers/girl.jpg"
+path = "/home/sh4dow/Pictures/wallpapers/volkswagen-van-anime-girl-art-sky-scenery-4k-wallpaper-uhdpaper.com-681@1@k.jpg"
 
 [wallpaper.monitors.eDP-1]
-path = "/home/sh4dow/Pictures/wallpapers/girl.jpg"
+path = "/home/sh4dow/Pictures/wallpapers/volkswagen-van-anime-girl-art-sky-scenery-4k-wallpaper-uhdpaper.com-681@1@k.jpg"
 
 [weather]
 enabled = false
 
 [widget.clock]
 format = "{:%I:%M %p}"
+
+[widget.mpvpaper]
+type = "noctalia/mpvpaper:mpvpaper"
 
 [widget.network]
 show_label = false

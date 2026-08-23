@@ -16,7 +16,7 @@ configuration {
 
 /*****----- Global Properties -----*****/
 @import                          "colors.rasi"
-@import                           "shared.rasi"
+@import                           "noctalia.rasi"
 
 /*****----- Main Window -----*****/
 window {

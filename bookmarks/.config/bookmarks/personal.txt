@@ -11,3 +11,6 @@ mail::https://mail.proton.me/u/1/inbox
 drive::https://drive.proton.me/u/0/
 linuxbook::https://thelinuxbook.com/
 apidev::https://youtu.be/0sOvCWFmrtA
+novelfire::https://novelphoenix.com
+comick::comick.dev
+asura::asurascans.com

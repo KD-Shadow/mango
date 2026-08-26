@@ -475,3 +475,10 @@ alias fastfetch fetch
 
 #paths
 fish_add_path (go env GOPATH)/bin
+fish_add_path ~/.cargo/bin
+
+# Canon LBP2900
+alias print='lp -d LBP2900'
+alias printq='lpq -P LBP2900'
+alias printstatus='lpstat -t'
+alias printcancel='cancel -a LBP2900'

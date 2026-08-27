@@ -50,7 +50,7 @@ x-scheme-handler/unknown=helium.desktop
 x-scheme-handler/insomnia=insomnia.desktop
 x-scheme-handler/codex=chatgpt.desktop
 x-scheme-handler/mailspring=Mailspring.desktop
-x-scheme-handler/mailto=Mailspring.desktop
+x-scheme-handler/mailto=helium.desktop
 
 [Added Associations]
 text/plain=nvim.desktop;
